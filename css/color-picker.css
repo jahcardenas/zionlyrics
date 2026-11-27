@@ -1,0 +1,111 @@
+/* Customized color picker */
+.cc-cp-square {
+    width: 216px;
+    height: 140px;
+    border-radius: 6px;
+    cursor: crosshair;
+    display: block;
+    border: 1px solid var(--border-light);
+}
+
+/* Hue slider — specificity elevada (.picker-popup .cc-cp-hue) para ganarle
+   a la regla global input[type="range"] de input.css, que tiene especificidad
+   (0,1,1) y pisa el gradiente y las dimensiones. Sin el prefijo .picker-popup,
+   el track se ve gris (var(--border-light)) y el thumb pierde el borde blanco.
+   El gradiente va en ::-webkit-slider-runnable-track, NO en el input: Chromium
+   pinta el track nativo por encima del background del input cuando solo se
+   aplica appearance:none al elemento. */
+.picker-popup .cc-cp-hue {
+    width: 100%;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.picker-popup .cc-cp-hue::-webkit-slider-runnable-track {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(to right,
+        #ff0000 0%, #ffff00 16.66%, #00ff00 33.33%,
+        #00ffff 50%, #0000ff 66.66%, #ff00ff 83.33%, #ff0000 100%);
+}
+
+.picker-popup .cc-cp-hue::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #333;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    cursor: pointer;
+    margin-top: -2px;
+}
+
+.picker-popup .cc-cp-hue::-moz-range-track {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(to right,
+        #ff0000 0%, #ffff00 16.66%, #00ff00 33.33%,
+        #00ffff 50%, #0000ff 66.66%, #ff00ff 83.33%, #ff0000 100%);
+}
+
+.picker-popup .cc-cp-hue::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #333;
+    cursor: pointer;
+}
+
+.cc-cp-bottom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.cc-cp-preview {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+.cc-cp-preview:hover {
+    cursor:pointer;
+}
+.cc-cp-hex {
+    flex: 1;
+    padding: 6px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.cc-cp-hex:focus {
+    border-color: var(--active-border);
+    outline: none;
+}
+
+.cc-cp-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.color-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

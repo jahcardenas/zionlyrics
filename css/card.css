@@ -1,0 +1,222 @@
+/* ==========================================================
+   APP-CARD — clase base global para cards de la app
+   La usan: chorus-card, canto-card, canto-stanza-card,
+            bible-card, bible-verse-card, bible-selected-card.
+   ========================================================== */
+
+:root {
+    --card-hover-bg:  rgba(0, 0, 0, 0.035);
+    --card-active-bg: rgba(0, 0, 0, 0.075);
+}
+:root[data-theme="dark"] {
+    --card-hover-bg:  rgba(255, 255, 255, 0.05);
+    --card-active-bg: rgba(255, 255, 255, 0.11);
+}
+
+.app-card {
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+    margin-bottom: 2px;
+}
+.app-card:hover {
+    background: var(--card-hover-bg);
+}
+.app-card.active {
+    background: var(--card-active-bg);
+    /*box-shadow: inset 3px 0 0 0 var(--active-border);*/
+}
+
+/* ==========================================================
+   BADGES CON COLOR POR VALOR
+   Compartido por .chorus-badge, .canto-badge, .chorus-filter-tag
+   ========================================================== */
+
+.chorus-badge,
+.canto-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    background: var(--code-btn-hover-bg);
+    color: var(--text-muted);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Colores por tipo */
+.chorus-badge[data-value="Alabanza"],
+.canto-badge[data-value="Alabanza"],
+.chorus-filter-tag[data-value="Alabanza"] {
+    background: rgba(217, 119, 6, 0.13);
+    color: #d97706;
+}
+.chorus-badge[data-value="Adoración"],
+.canto-badge[data-value="Adoración"],
+.chorus-filter-tag[data-value="Adoración"] {
+    background: rgba(124, 58, 237, 0.13);
+    color: #7c3aed;
+}
+
+/* Colores por tono (círculo cromático) */
+.chorus-badge[data-value="Do"],
+.canto-badge[data-value="Do"],
+.chorus-filter-tag[data-value="Do"] {
+    background: rgba(220, 38, 38, 0.13);
+    color: #dc2626;
+}
+.chorus-badge[data-value="Re"],
+.canto-badge[data-value="Re"],
+.chorus-filter-tag[data-value="Re"] {
+    background: rgba(234, 88, 12, 0.13);
+    color: #ea580c;
+}
+.chorus-badge[data-value="Mi"],
+.canto-badge[data-value="Mi"],
+.chorus-filter-tag[data-value="Mi"] {
+    background: rgba(202, 138, 4, 0.15);
+    color: #a16207;
+}
+.chorus-badge[data-value="Fa"],
+.canto-badge[data-value="Fa"],
+.chorus-filter-tag[data-value="Fa"] {
+    background: rgba(22, 163, 74, 0.13);
+    color: #16a34a;
+}
+.chorus-badge[data-value="Sol"],
+.canto-badge[data-value="Sol"],
+.chorus-filter-tag[data-value="Sol"] {
+    background: rgba(37, 99, 235, 0.13);
+    color: #2563eb;
+}
+.chorus-badge[data-value="La"],
+.canto-badge[data-value="La"],
+.chorus-filter-tag[data-value="La"] {
+    background: rgba(67, 56, 202, 0.13);
+    color: #4338ca;
+}
+.chorus-badge[data-value="Si"],
+.canto-badge[data-value="Si"],
+.chorus-filter-tag[data-value="Si"] {
+    background: rgba(147, 51, 234, 0.13);
+    color: #9333ea;
+}
+.chorus-badge[data-value="Sibemol"],
+.canto-badge[data-value="Sibemol"],
+.chorus-filter-tag[data-value="Sibemol"] {
+    background: rgba(100, 116, 139, 0.15);
+    color: #64748b;
+}
+
+/* X del chip del filtro hereda el color del tag */
+.chorus-filter-tag[data-value] .chorus-filter-tag-x {
+    color: inherit;
+    opacity: 0.7;
+}
+.chorus-filter-tag[data-value] .chorus-filter-tag-x:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+
+/* ==========================================================
+   MONITOR CARD — tab Monitores en Opciones
+   ========================================================== */
+.monitor-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    min-width: 0;
+}
+
+.monitor-card-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--code-btn-hover-bg);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.monitor-card-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.monitor-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    background: var(--code-btn-hover-bg);
+    color: var(--text-muted);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.monitor-type-badge[data-value="coros"]        { background: rgba(217, 119, 6, 0.13); color: #d97706; }
+.monitor-type-badge[data-value="versiculos"]   { background: rgba(37, 99, 235, 0.13); color: #2563eb; }
+.monitor-type-badge[data-value="multimedia"]   { background: rgba(22, 163, 74, 0.13);  color: #16a34a; }
+.monitor-type-badge[data-value="anuncios"]     { background: rgba(234, 88, 12, 0.13);  color: #ea580c; }
+.monitor-type-badge[data-value="staff-musica"] { background: rgba(124, 58, 237, 0.13); color: #7c3aed; }
+.monitor-type-badge[data-value="predicador"]   { background: rgba(147, 51, 234, 0.13); color: #9333ea; }
+.monitor-type-badge[data-value="controlador"]  { background: rgba(100, 116, 139, 0.15); color: #64748b; }
+
+.monitor-card-add {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px dashed var(--border-light);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.monitor-card-add:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+    border-color: var(--active-border);
+}
+
+
+/* ==========================================================
+   EMPTY STATE — reemplazo de .list-item
+   Usado por: renderAdminBibles(), renderAdminFonts()
+   ========================================================== */
+.app-card-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+
+.lang-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

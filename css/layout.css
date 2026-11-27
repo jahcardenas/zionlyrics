@@ -1,0 +1,527 @@
+#app {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    width: 100%;            /* Ocupa el 100% del ancho del padre */
+    box-sizing: border-box;  /* Para que el padding no sume al ancho exterior */
+    padding: 4px;
+    gap: 0;                 /* El espacio entre columnas/filas lo dan los divisores (--layout-rz) */
+    justify-content: flex-start;
+    /*height: calc(100vh - 52px);*/
+    overflow: hidden;       /* Evita scrollbars no deseados */
+}
+
+.col-panel {
+    box-sizing: border-box;   /* las alturas calc() de los modos arriba/abajo cuentan padding y borde */
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background 0.3s, border 0.3s;
+}
+
+.panel-header {
+    background: var(--header-bg);
+    color: var(--text-main);
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 42px;
+    border-radius: 4px 4px 0 0;
+    transition: background 0.3s, border 0.3s;
+}
+
+.panel-subheader {
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border-top: 1px solid var(--border-light);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    position: relative;
+}
+.panel-header .code-btn svg,
+.panel-header [data-lucide] svg {
+    pointer-events: none;
+}
+.col-resizer {
+    width: var(--layout-rz, 6px);
+    flex: 0 0 var(--layout-rz, 6px);
+    cursor: col-resize;
+    background: transparent;
+    position: relative;
+    z-index: 20;
+    margin: 0;
+    touch-action: none;     /* el arrastre usa pointer events */
+}
+/* línea visible de 2px centrada en el área de agarre */
+.col-resizer::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: transparent;
+    border-radius: 2px;
+    transition: background 0.15s;
+}
+.col-resizer:hover::after { background: rgba(0, 120, 215, 0.55); }
+.col-resizer.active::after { background: #0078D7; }
+
+#custom-titlebar {
+    height: 38px;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 12px;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    flex-shrink: 0;
+}
+
+#custom-titlebar-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    letter-spacing: 0.3px;
+}
+#custom-titlebar-right-group {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    height: 100%;
+    -webkit-app-region: no-drag;
+}
+#custom-titlebar-controls ,
+#custom-titlebar-actions {
+    display: flex;
+    -webkit-app-region: no-drag;
+    gap: 0px; /* Sin separación brusca para que queden unidos o con un espacio sutil */
+    height: 100%;
+    /*margin-left: auto;*/
+}
+
+.titlebar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 100%;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.titlebar-btn svg {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.titlebar-btn:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+/* Botón específico de cerrar con hover rojo sutil */
+.titlebar-btn-close:hover {
+    background: #e81123 !important;
+    color: #ffffff !important;
+}
+
+/* macOS: dejar espacio a los semáforos nativos y ocultar los botones custom */
+html.is-mac #custom-titlebar {
+    padding-left: 78px;
+}
+/*html.is-mac #custom-titlebar-title {
+    margin-left: 0; 
+}*/
+html.is-mac #custom-titlebar-controls {
+    display: none;
+}
+
+/* Botón de menú global — hover azul animado */
+#titlebar-menu-btn {
+    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.25s ease,
+                transform 0.15s ease;
+}
+#titlebar-menu-btn:hover {
+    color: var(--active-border);
+    background: var(--code-btn-hover-bg);
+}
+#titlebar-menu-btn.active {
+    color: var(--active-border);
+}
+#titlebar-menu-btn svg circle {
+    transition: fill 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#titlebar-menu-btn:hover svg circle,
+#titlebar-menu-btn.active svg circle {
+    fill: var(--active-border);
+}
+
+
+
+/* ==========================================================
+   RIPPLE DE TEMA — View Transitions con scope reducido
+   ========================================================== */
+
+/* Solo estos dos contenedores participan en la view transition.
+   Todo lo demás (modales, pickers, tooltips, splash) queda fuera
+   del snapshot y no se clona. */
+#custom-titlebar { view-transition-name: theme-titlebar; }
+#app             { view-transition-name: theme-app; }
+
+/* Desactivar el crossfade por defecto: queremos clip-path circular */
+::view-transition-old(theme-titlebar),
+::view-transition-new(theme-titlebar),
+::view-transition-old(theme-app),
+::view-transition-new(theme-app) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(theme-titlebar),
+::view-transition-old(theme-app) {
+    z-index: 1;
+}
+
+::view-transition-new(theme-titlebar),
+::view-transition-new(theme-app) {
+    z-index: 2;
+}
+
+/* Durante la transición, matar transiciones CSS de los elementos reales
+   para que no compitan con el clip-path del pseudo-elemento. */
+html.theme-transitioning,
+html.theme-transitioning body {
+    transition: none !important;
+}
+
+#custom-titlebar { view-transition-name: theme-titlebar; }
+#app             { view-transition-name: theme-app; }
+
+/* Solo el modal que esté arriba del stack participa en la transición.
+   La clase .theme-ripple-active la pone/quita JS dinámicamente. */
+.modal-overlay.theme-ripple-active {
+    view-transition-name: theme-modal-open;
+}
+
+/* El modal también necesita el tratamiento de clip-path (no crossfade) */
+::view-transition-old(theme-modal-open),
+::view-transition-new(theme-modal-open) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-old(theme-modal-open) { z-index: 3; }
+::view-transition-new(theme-modal-open) { z-index: 4; }
+
+
+/* ==========================================================
+   LISTVIEW — contenedores de columna con scroll
+   (antes en listview.css)
+   ========================================================== */
+.listview {
+    background: var(--panel-bg);
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 2px;
+}
+
+
+/* ==========================================================
+   TÍTULO DEL SERMÓN EN LA TITLEBAR
+   ========================================================== */
+#custom-titlebar-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    max-width: 60vw;
+    overflow: hidden;
+}
+
+.titlebar-sermon-text {
+    font-weight: 500;
+    opacity: 0.85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40vw;
+    vertical-align: baseline;
+}
+
+
+
+
+/* ==========================================================
+   BARRA DE EDICIÓN DE LAYOUT (Estilo Firefox)
+   ========================================================== */
+.layout-edit-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 0; /* Animación de apertura */
+    overflow: hidden;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 16px;
+    box-sizing: border-box;
+    transition: height 0.25s cubic-bezier(0.2, 0, 0, 1);
+    flex-shrink: 0;
+}
+
+/* Cuando el body entra en modo edición, la barra se despliega */
+body.is-editing-layout .layout-edit-bar {
+    height: 48px;
+}
+
+.leb-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    user-select: none;
+}
+.leb-text svg {
+    width: 16px;
+    height: 16px;
+    color: var(--active-border);
+}
+
+.leb-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.leb-actions .code-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+
+/* ==========================================================
+   MODO EDICIÓN DE LAYOUT Y DRAG & DROP
+   ========================================================== */
+.drag-grip {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    cursor: grab;
+    padding: 4px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+.drag-grip:active { cursor: grabbing; }
+.grip-line { width: 14px; height: 1px; background: var(--text-muted); }
+
+body.is-editing-layout .drag-grip {
+    display: flex; /* Solo visible en modo edición */
+}
+
+
+
+/* ==========================================================
+   LAYOUT — 3 modos de proyección
+   Modo 1 (default):  [1] [2] [3] [4]   → 4 columnas en fila
+   Modo 2 (bottom):   [1] [2] [3]
+                      [    4    ]       → 4 full width abajo
+   Modo 3 (top):      [    4    ]
+                      [1] [2] [3]       → 4 full width arriba
+   ========================================================== */
+
+:root {
+    /* Alturas configurables sin tocar JS. */
+    --layout-projection-row: 40%;   /* alto de la fila de proyección (lo cambia el divisor horizontal) */
+    --layout-rz: 6px;               /* grosor del área de agarre de los divisores, vertical y horizontal */
+}
+
+/* Las filas se pegan arriba y no queda hueco */
+#app {
+    flex-wrap: nowrap;
+    align-content: flex-start;
+}
+#app.layout-projection-bottom,
+#app.layout-projection-top {
+    flex-wrap: wrap;
+}
+
+/* Sin transition en flex/height: con ella las columnas "persiguen" al puntero mientras se arrastra
+   un divisor (se movían hacia atrás y luego regresaban). */
+
+/* Modo 2: proyección abajo.
+   Alturas: columnas + divisor + fila de proyección = 100 % del área (sin desbordar). */
+#app.layout-projection-bottom #col-1,
+#app.layout-projection-bottom #col-2,
+#app.layout-projection-bottom #col-3 {
+    height: calc(100% - var(--layout-projection-row) - var(--layout-rz));
+    order: 1;
+}
+#app.layout-projection-bottom #col-4 {
+    flex: 0 0 100% !important;      /* !important: index.html le pone un flex inline (peso de columna) */
+    height: var(--layout-projection-row);
+    order: 3;
+}
+
+/* Modo 3: proyección arriba. */
+#app.layout-projection-top #col-1,
+#app.layout-projection-top #col-2,
+#app.layout-projection-top #col-3 {
+    height: calc(100% - var(--layout-projection-row) - var(--layout-rz));
+    order: 3;
+}
+#app.layout-projection-top #col-4 {
+    flex: 0 0 100% !important;
+    height: var(--layout-projection-row);
+    order: 1;
+}
+
+/* Divisor horizontal (entre las dos filas): mismo grosor de agarre que el vertical */
+#app .row-resizer {
+    display: none;
+    flex: 0 0 100%;
+    width: 100%;
+    height: var(--layout-rz, 6px);
+    align-self: flex-start;
+    cursor: row-resize;
+    background: transparent;
+    margin: 0;
+    position: relative;
+    z-index: 20;
+    touch-action: none;
+}
+#app .row-resizer::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: transparent;
+    transition: background 0.15s;
+    border-radius: 2px;
+}
+#app .row-resizer:hover::after { background: rgba(0, 120, 215, 0.55); }
+#app .row-resizer.active::after { background: #0078D7; }
+
+/* Asignación de órdenes para que los divisores no salten de fila */
+#app.layout-projection-bottom .col-resizer { order: 1; }
+#app.layout-projection-bottom .row-resizer { display: block; order: 2; }
+
+#app.layout-projection-top .col-resizer { order: 3; }
+#app.layout-projection-top .row-resizer { display: block; order: 2; }
+
+/* Miniaturas con la proyección en fila completa (arriba/abajo):
+   cada miniatura se ajusta a la ALTURA de la fila y su ancho sale del aspect-ratio del monitor
+   (antes ocupaba todo el ancho de la app y se estiraba sin control).
+   Se usan !important solo para vencer el style inline de #projection-container en index.html. */
+#app.layout-projection-bottom #projection-container,
+#app.layout-projection-top #projection-container {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+#app.layout-projection-bottom .projector-thumb-wrapper,
+#app.layout-projection-top .projector-thumb-wrapper {
+    width: auto;
+    max-width: none;
+    height: 100%;
+    flex: 0 0 auto;
+}
+
+/* Resizers ocultos en modo edición: no se puede reordenar y redimensionar a la vez. */
+body.is-editing-layout .col-resizer {
+    display: none !important;
+}
+
+/* ==========================================================
+   FALLBACK DE DRAG — reemplaza la drag image nativa de Chromium
+   SortableJS clona la columna y la posiciona con position: fixed.
+   El tamaño real se aplica inline por SortableJS.
+   ========================================================== */
+.col-drag-fallback {
+    position: fixed !important;
+    z-index: 10000 !important;
+    pointer-events: none !important;
+    opacity: 0.85;
+    border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    cursor: grabbing;
+    /* El contenido sigue visible; solo se aplica el sombreado para "elevar" */
+}
+
+/* El placeholder (nodo original) mantiene su tamaño reservado,
+   pero se ve como un hueco vacío con opacidad reducida. */
+.col-ghost {
+    opacity: 0.3;
+    background: var(--highlight-bg);
+}
+
+
+/* ==========================================
+   ESTILOS DEL POPUP DEL TÍTULO DEL SERMÓN
+   ========================================== */
+.sermon-title-picker {
+    background: var(--header-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    padding: 16px;
+}
+.sermon-title-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sermon-title-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+.sermon-title-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    font-size: 14px;
+}
+.sermon-title-input:focus {
+    outline: none;
+    border-color: var(--active-border);
+}
+.sermon-title-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+}

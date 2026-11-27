@@ -1,0 +1,103 @@
+.dropdown-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    min-width: 200px;
+    max-width: 280px;
+
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+    display: block !important;
+    will-change: opacity;
+    backface-visibility: hidden;
+}
+.dropdown-menu.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dd-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-main);
+    transition: background 0.13s ease, color 0.13s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.dd-item:hover {
+    background: var(--code-btn-hover-bg);
+}
+
+.dd-item:active {
+    transform: scale(0.98);
+}
+
+.dd-sep {
+    height: 1px;
+    background: var(--border-light);
+    margin: 8px 8px;
+}
+
+.dd-section-title {
+    padding: 12px 12px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    user-select: none;
+}
+
+/* ==========================================================
+   SUBMENÚ ANIDADO
+   - Retención de hover del engrane cuando su dropdown está abierto
+   - Retención de hover del ítem padre mientras el submenú está abierto
+   - Cierre del submenú al salir, sin cerrar el dropdown padre
+   ========================================================== */
+
+.header-actions .code-btn.menu-btn:has(+ .dropdown-menu.show) {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+.dd-item.has-submenu {
+    position: relative;
+}
+.dd-item.has-submenu .dd-submenu-arrow {
+    margin-left: auto;
+    opacity: 0.6;
+    width: 14px;
+    height: 14px;
+}
+.dd-item.has-submenu.open {
+    background: var(--code-btn-hover-bg);
+}
+
+.dropdown-menu.submenu {
+    position: absolute;
+    top: -8px;
+    left: calc(100% + 4px);
+    margin: 0;
+    min-width: 200px;
+    max-width: 260px;
+}
+.dropdown-menu.submenu.flip-left {
+    left: auto;
+    right: calc(100% + 4px);
+}

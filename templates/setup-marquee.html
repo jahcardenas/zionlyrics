@@ -1,0 +1,190 @@
+        <!-- 11. Configurar marquesina -->
+        <div class="modal-overlay" id="configurar-marquesina">
+            <div class="modal-content" style="width: 1080px; height: 640px;">
+                <div class="modal-header" data-i18n="str84">Configurar marquesina</div>
+
+                <div class="modal-body cc-split-body">
+
+                    <!-- ============ COLUMNA IZQUIERDA: config ============ -->
+                    <div class="cc-split-right">
+                        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%;">
+                            <div class="code-btn" data-function="saveMarqueeToQueue">
+                                <i data-lucide="square-plus"></i>
+                                <span data-i18n="str57">Guardar</span>
+                            </div>
+                            <div class="code-btn" data-function="clearMarqueeFields">
+                                <i data-lucide="eraser"></i>
+                                <span data-i18n="str17">Limpiar</span>
+                            </div>
+                        </div>
+
+                        <!-- TEXTO -->
+                        <div class="cc-section cc-section-flat">
+                            <div class="cc-section-title" data-i18n="str67">Texto</div>
+                            <input data-i18n-placeholder="str96"
+                                   data-json-key="text"
+                                   data-type="text"
+                                   id="mrc-text"
+                                   placeholder="Texto que circulará"
+                                   type="text"/>
+                        </div>
+
+                        <!-- ESTILO -->
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str85">Estilo del texto</div>
+                            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                                <div class="cc-multi-btn"
+                                     data-function="openSinglePicker"
+                                     data-function-arg1="fonts"
+                                     data-i18n-tooltip="str111"
+                                     data-json-key="fontFamily"
+                                     data-tooltip="Fuente"
+                                     data-type="single-picker"
+                                     id="mrc-font">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <div class="cc-multi-btn"
+                                     data-function="openSinglePicker"
+                                     data-function-arg1="font-weight"
+                                     data-i18n-tooltip="str123"
+                                     data-json-key="fontWeight"
+                                     data-tooltip="Peso"
+                                     data-type="single-picker"
+                                     id="mrc-font-weight">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <label data-i18n-tooltip="str124" data-tooltip="Tamaño" style="color:var(--text-main); white-space:nowrap;">
+                                    <input data-json-key="fontSize"
+                                           data-type="number"
+                                           id="mrc-font-size"
+                                           max="20"
+                                           min="1"
+                                           step="0.5"
+                                           style="width:70px; padding:6px 8px;"
+                                           type="number" />
+                                </label>
+                                <div class="cc-cp-preview"
+                                     data-color="#ffffff"
+                                     data-function="openColorPicker"
+                                     data-i18n-tooltip="str125"
+                                     data-json-key="color"
+                                     data-tooltip="Color del texto"
+                                     data-type="color"
+                                     id="mrc-color-text">
+                                </div>
+                                <div class="cc-cp-preview"
+                                     data-color="#000000"
+                                     data-function="openColorPicker"
+                                     data-i18n-tooltip="str126"
+                                     data-json-key="bgColor"
+                                     data-tooltip="Color del fondo"
+                                     data-type="color"
+                                     id="mrc-color-bg">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COMPORTAMIENTO -->
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str86">Comportamiento</div>
+                            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                                <div class="cc-multi-btn"
+                                     data-function="openSinglePicker"
+                                     data-function-arg1="marquee-position"
+                                     data-i18n-tooltip="str127"
+                                     data-json-key="position"
+                                     data-tooltip="Posición"
+                                     data-type="single-picker"
+                                     id="mrc-position">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <div class="cc-multi-btn"
+                                     data-function="openSinglePicker"
+                                     data-function-arg1="marquee-duration-mode"
+                                     data-i18n-tooltip="str128"
+                                     data-json-key="durationMode"
+                                     data-tooltip="Modo de duración"
+                                     data-type="single-picker"
+                                     id="mrc-duration-mode">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <input data-i18n-tooltip="str129"
+                                       data-json-key="durationValue"
+                                       data-tooltip="Cantidad"
+                                       data-type="number"
+                                       id="mrc-duration-value"
+                                       max="999"
+                                       min="1"
+                                       step="1"
+                                       style="width:60px;"
+                                       type="number" />
+                                <input data-i18n-tooltip="str130"
+                                       data-json-key="speed"
+                                       data-tooltip="Velocidad de transición en segundos"
+                                       data-type="number"
+                                       id="mrc-speed"
+                                       max="300"
+                                       min="5"
+                                       step="5"
+                                       style="width:60px;"
+                                       type="number" />
+                                <div class="cc-multi-btn"
+                                     data-function="openSinglePicker"
+                                     data-function-arg1="marquee-animation"
+                                     data-i18n-tooltip="str131"
+                                     data-json-key="animation"
+                                     data-tooltip="Animación de transición"
+                                     data-type="single-picker"
+                                     id="mrc-animation">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MONITORES -->
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str87">Monitores</div>
+                            <div class="mrc-monitors-list"
+                                 data-json-key="targetDisplays"
+                                 data-type="targets-multi"
+                                 id="mrc-monitors-list">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ COLUMNA DERECHA: preview + queue ============ -->
+                    <div class="cc-split-left">
+                        <!-- PREVIEW -->
+                        <div class="cc-section cc-section-flat">
+                            <div class="cc-section-title" data-i18n="str36">Vista previa</div>
+                            <div class="mrc-preview">
+                                <div class="mrc-preview-layer" data-anim="none" data-position="bottom">
+                                    <div class="mrc-preview-track">
+                                        <span class="mrc-preview-text">Texto de ejemplo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HISTORIAL -->
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str88">Marquesinas</div>
+                            <div class="mrc-queue-list" id="mrc-queue-list">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-cancel" data-function="closeModal" data-function-arg1="configurar-marquesina">
+                        <span data-i18n="str27">Cerrar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

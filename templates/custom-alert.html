@@ -1,0 +1,29 @@
+        <!-- 12. customAlert -->
+        <template id="custom-confirm-template">
+            <div class="modal-overlay">
+                <div class="custom-confirm-box"
+                     style="background:var(--panel-bg); color:var(--text-main); border:1px solid var(--border-light);">
+                    <p class="custom-confirm-msg" style="color:var(--text-main);">Mensaje de confirmación</p>
+                    <div class="custom-confirm-actions">
+                        <div class="code-btn code-btn-primary custom-confirm-ok"
+                             data-function="resolveCustomConfirm"
+                             data-function-arg1="yes"
+                             style="padding:8px 20px;">
+                            <span data-i18n="str26">Aceptar</span>
+                        </div>
+                        <div class="code-btn custom-confirm-no"
+                             data-function="resolveCustomConfirm"
+                             data-function-arg1="no"
+                             style="padding:8px 20px; display:none;">
+                            <span data-i18n="str324">No</span>
+                        </div>
+                        <div class="code-btn code-btn-cancel custom-confirm-cancel"
+                             data-function="resolveCustomConfirm"
+                             data-function-arg1="cancel"
+                             style="padding:8px 20px;">
+                            <span data-i18n="str27">Cancelar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>

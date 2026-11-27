@@ -1,0 +1,94 @@
+/* Ícono de galería - botón con menos padding para dejar respirar el SVG grande */
+
+
+/* Transición lenta y suave: el color entra con curva ease-out */
+.cc-gallery-icon .g-sky,
+.cc-gallery-icon .g-sun,
+.cc-gallery-icon .g-mtn {
+    transition: fill 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                stroke 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.code-btn:hover .cc-gallery-icon .g-sky { fill: #d6e6f5; }
+.code-btn:hover .cc-gallery-icon .g-sun { fill: #5a7fbd; }
+.code-btn:hover .cc-gallery-icon .g-mtn { fill: #5cb85c; }
+
+/* El trazo (stroke) también se atenúa un poco al hover para que el relleno
+   tome el protagonismo sin que el outline se vea duro */
+.code-btn:hover .cc-gallery-icon .g-sky,
+.code-btn:hover .cc-gallery-icon .g-sun,
+.code-btn:hover .cc-gallery-icon .g-mtn {
+    stroke: rgba(0, 0, 0, 0.15);
+}
+
+/* Importar / Exportar */
+
+
+/* Fill base: hereda el color del botón. Transición lenta en ambas propiedades */
+.cc-transfer-icon .t-arrow,
+.cc-transfer-icon .t-base {
+    fill: currentColor;
+    transition: fill 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cc-transfer-icon .t-base {
+    opacity: 0.4;   /* base tenue en reposo, igual que el diseño original */
+}
+
+/* ── Exportar: flecha verde, base verde oscuro ── */
+.code-btn:hover .cc-export-icon .t-arrow {
+    fill: #5cb85c;       /* verde principal (mismo que las montañas del ícono de galería) */
+}
+.code-btn:hover .cc-export-icon .t-base {
+    fill: #3d8b3d;       /* verde más oscuro para la base */
+    opacity: 1;
+}
+
+/* ── Importar: flecha azul, base azul oscuro ── */
+.code-btn:hover .cc-import-icon .t-arrow {
+    fill: #4a90e2;       /* azul principal */
+}
+.code-btn:hover .cc-import-icon .t-base {
+    fill: #2c5fa8;       /* azul más oscuro para la base */
+    opacity: 1;
+}
+
+/* Nuevo / Editar */
+
+.cc-new-icon .n-box, .cc-new-icon .n-plus,
+.cc-edit-icon .e-box, .cc-edit-icon .e-pen, .cc-edit-icon .e-cap {
+    transition: stroke 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                fill   0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Hover Nuevo: caja se llena de oro, + en coral ── */
+.code-btn:hover .cc-new-icon .n-box {
+    stroke: #ffd166;
+    fill:   #ffd166;
+}
+.code-btn:hover .cc-new-icon .n-plus {
+    stroke: #ef476f;
+}
+
+/* ── Hover Editar: caja se llena de lavanda, lápiz en violeta profundo ── */
+.code-btn:hover .cc-edit-icon .e-box {
+    stroke: #c8b6ff;
+    fill:   #c8b6ff;
+}
+.code-btn:hover .cc-edit-icon .e-pen,
+.code-btn:hover .cc-edit-icon .e-cap {
+    stroke: #7b2cbf;
+}
+/* El + va más grueso que el resto del ícono (que usa stroke-width 1.5) */
+.cc-new-icon .n-plus {
+    stroke-width: 2.4;
+}
+/* El lápiz va igual de grueso que el + para que el hueco se vea parejo */
+.cc-edit-icon .e-pen,
+.cc-edit-icon .e-cap {
+    stroke-width: 2.4;
+}
+
+[data-function^="export"] svg {
+    transform: scaleY(-1);
+}

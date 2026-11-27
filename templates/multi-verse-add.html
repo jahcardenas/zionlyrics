@@ -1,0 +1,33 @@
+        <!-- 19. Biblia Multi Version -->
+        <div class="modal-overlay" id="multi-verse-add-modal">
+            <div class="modal-content" style="width: 700px; height: 550px;">
+                <div class="modal-header" data-i18n="str379">Agregar Multi-versión</div>
+
+                <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
+                    
+                    <!-- Buscador -->
+                    <div class="modal-box modal-box-col modal-box-pad" style="flex: 0 0 auto; display: flex; gap: 8px; align-items: center;">
+                        <i data-lucide="search" style="color: var(--text-muted); width: 18px; height: 18px;"></i>
+                        <input id="multi-verse-filter" type="text" style="flex: 1; border: none; background: transparent; outline: none; color: var(--text-main); font-size: 14px;" placeholder="Ej: Juan 3:16, Génesis 1:1, 1 Corintios 13:4-7" autocomplete="off">
+                    </div>
+
+                    <!-- Lista de versiones disponibles -->
+                    <div class="modal-box modal-box-col" style="flex: 1; min-height: 0;">
+                        <div class="bible-box-title" data-i18n="str380">Selecciona hasta 3 versiones</div>
+                        <div id="multi-verse-list" class="modal-box-scroll" style="display: flex; flex-direction: column; gap: 4px; padding: 4px;">
+                            <div class="app-card-empty" data-i18n="str381">Escribe una referencia para buscar en las versiones disponibles.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-primary" data-function="confirmAddMultiVerse">
+                        <span data-i18n="str382">Agregar a la presentación</span>
+                    </div>
+                    <div class="code-btn code-btn-cancel" data-function="closeModal" data-function-arg1="multi-verse-add-modal">
+                        <span data-i18n="str38">Cerrar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

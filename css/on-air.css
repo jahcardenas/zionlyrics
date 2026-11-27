@@ -1,0 +1,92 @@
+/* ==========================================================
+   INDICADOR ON-AIR — play/pause + ripple en cards de columna
+   Aplica a: .canto-card, .bible-card, .media-card (todos .app-card)
+   ========================================================== */
+
+/* ---------- Slot base ---------- */
+.canto-card-play {
+    position: relative;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: default;
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 1;
+}
+
+/* Media: el slot sí es clickeable */
+.canto-card-play.media-card-play {
+    cursor: pointer;
+}
+
+/* Media: hover solo cuando no está on-air */
+.app-card:not(.is-on-air) .media-card-play:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+/* ---------- Iconos (play / pause, crossfade) ---------- */
+.canto-card-play .cp-icon {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+.canto-card-play .cp-icon-play  { opacity: 1; }
+.canto-card-play .cp-icon-pause { opacity: 0; }
+
+/* ---------- Ripple (dos ondas) ---------- */
+.canto-card-play .cp-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #1ed760;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transform: scale(1);
+}
+
+/* ---------- Estado: ON AIR (reproduciendo) ---------- */
+.app-card.is-on-air .canto-card-play {
+    background: #1ed760;
+    color: #ffffff;
+}
+.app-card.is-on-air .canto-card-play .cp-icon-play  { opacity: 0; }
+.app-card.is-on-air .canto-card-play .cp-icon-pause { opacity: 1; }
+.app-card.is-on-air .canto-card-play .cp-ripple {
+    animation: onAirRipple 1.8s ease-out infinite;
+}
+.app-card.is-on-air .canto-card-play .cp-ripple-2 {
+    animation-delay: 0.6s;
+}
+
+/* ---------- Estado: ON AIR + PAUSADO ---------- */
+.app-card.is-on-air.is-paused .canto-card-play {
+    background: var(--text-muted);
+    color: #ffffff;
+}
+.app-card.is-on-air.is-paused .canto-card-play .cp-icon-play  { opacity: 1; }
+.app-card.is-on-air.is-paused .canto-card-play .cp-icon-pause { opacity: 0; }
+.app-card.is-on-air.is-paused .canto-card-play .cp-ripple {
+    background: var(--text-muted);
+    animation: onAirRipplePaused 2.4s ease-out infinite;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes onAirRipple {
+    0%   { opacity: 0.55; transform: scale(1); }
+    100% { opacity: 0;    transform: scale(2.2); }
+}
+@keyframes onAirRipplePaused {
+    0%   { opacity: 0.30; transform: scale(1); }
+    100% { opacity: 0;    transform: scale(1.8); }
+}

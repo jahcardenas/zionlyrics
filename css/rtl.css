@@ -1,0 +1,78 @@
+/* ==========================================================
+   RTL — Overrides para idiomas right-to-left
+   Aplica solo cuando <html dir="rtl">
+   ========================================================== */
+
+/* Titlebar */
+[dir="rtl"] #custom-titlebar {
+    padding: 0 12px 0 0;
+}
+[dir="rtl"] #custom-titlebar-right-group {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* Columnas principales */
+[dir="rtl"] #app {
+    flex-direction: row-reverse;
+}
+
+/* Modales */
+[dir="rtl"] .modal-footer-right {
+    justify-content: flex-start !important;
+}
+[dir="rtl"] .modal-footer-left {
+    justify-content: flex-end !important;
+}
+
+/* Split body del modal de Capas */
+[dir="rtl"] .cc-split-body {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .cc-split-left {
+    border-right: none;
+    border-left: 1px solid var(--border-light);
+}
+
+/* Inputs */
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="search"],
+[dir="rtl"] textarea {
+    text-align: right;
+    direction: rtl;
+}
+[dir="rtl"] input[type="number"] {
+    direction: ltr;
+    text-align: right;
+}
+
+/* Botones cc-multi-btn */
+[dir="rtl"] .cc-multi-btn {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .cc-multi-btn-chevron {
+    transform: scaleX(-1);
+}
+
+/* Botones de código */
+[dir="rtl"] .code-btn {
+    flex-direction: row-reverse;
+}
+
+/* Dropdowns */
+[dir="rtl"] .dd-item {
+    flex-direction: row-reverse;
+}
+
+/* Header de paneles */
+[dir="rtl"] .panel-header {
+    flex-direction: row-reverse;
+}
+
+/* Marquesina invertida */
+[dir="rtl"] .proy-marquee-track {
+    animation-direction: reverse;
+}
+[dir="rtl"] .mrc-preview-track {
+    animation-direction: reverse;
+}

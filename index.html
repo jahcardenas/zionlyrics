@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>ZionLyrics</title>
+        <script>
+            // Evita flash del tema incorrecto y activa el estado de carga
+            (function () {
+                const system = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', system ? 'dark' : 'light');
+            })();
+        </script>
+        <link href="icon.ico" rel="icon" type="image/png"/>
+        <link href="css/base.css" rel="stylesheet"/>
+        <link href="css/layout.css" rel="stylesheet"/>
+        <link href="css/button.css" rel="stylesheet"/>
+        <link href="css/input.css" rel="stylesheet"/>
+        <link href="css/splash.css" rel="stylesheet"/>
+        <link href="css/tooltip.css" rel="stylesheet"/>
+        <link href="css/checkbox.css" rel="stylesheet"/>
+        <link href="css/modal.css" rel="stylesheet"/>
+        <link href="css/submenu.css" rel="stylesheet"/>
+        <link href="css/icon.css" rel="stylesheet"/>
+        <link href="css/library.css" rel="stylesheet"/>
+        <link href="css/card.css" rel="stylesheet"/>
+        <link href="css/popover.css" rel="stylesheet"/>
+        <link href="css/add-chorus-card.css" rel="stylesheet"/>
+        <link href="css/add-verse-card.css" rel="stylesheet"/>
+        <link href="css/list-chorus-card.css" rel="stylesheet"/>
+        <link href="css/list-bible-card.css" rel="stylesheet"/>
+        <link href="css/list-media-card.css" rel="stylesheet"/>
+        <link href="css/marquee.css" rel="stylesheet"/>
+        <link href="css/picker-base.css" rel="stylesheet"/>
+        <!--link href="css/position-picker.css" rel="stylesheet"/-->
+        <link href="css/color-picker.css" rel="stylesheet"/>
+        <link href="css/shadow-picker.css" rel="stylesheet"/>
+        <link href="css/multi-picker.css" rel="stylesheet"/>
+        <link href="css/on-air.css" rel="stylesheet"/>
+        <link href="css/visor.css" rel="stylesheet"/>
+        <link href="css/rtl.css" rel="stylesheet" >
+        <link href="css/chorus-editor.css" rel="stylesheet"/>
+        <link href="css/stage-editor.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <!-- 0. Splash Screen -->
+        <div id="splash-screen">
+            <div class="splash-content">
+                <div class="splash-logo-wrap">
+                    <div class="splash-logo-bg"></div>
+                    <svg class="splash-logo" viewBox="0 0 135.46666 135.46667" xmlns="http://www.w3.org/2000/svg">
+                        <g class="splash-arrow-bottom" transform="translate(-30.620407,-15.262037)">
+                            <rect style="fill:#93c5fd;fill-opacity:1;stroke:none"
+                                  width="110.12261" height="23.059855"
+                                  x="-80.152504" y="-155.66684" ry="11.529927"
+                                  transform="matrix(-0.61940575,0.78507102,-0.68673509,-0.72690777,0,0)" />
+                            <rect style="fill:#93c5fd;fill-opacity:1;stroke:none"
+                                  width="74.914726" height="21.915051"
+                                  x="-152.17213" y="-132.95708" ry="10.957524"
+                                  transform="scale(-1)" />
+                        </g>
+                        <g class="splash-arrow-top" transform="translate(-44.378741,-15.262037)">
+                            <rect style="fill:#ffffff;fill-opacity:1;stroke:none"
+                                  width="110.12261" height="23.059855"
+                                  x="-44.477333" y="118.85406" ry="11.529927"
+                                  transform="matrix(0.61940575,-0.78507102,0.68673509,0.72690777,0,0)" />
+                            <rect style="fill:#ffffff;fill-opacity:1;stroke:none"
+                                  width="74.914726" height="21.915051"
+                                  x="58.44841" y="38.586765" ry="10.957524" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- 15. Popover -->
+        <div id="app-toast" class="app-toast">
+            <div class="app-toast-message"></div>
+            <div class="app-toast-progress-track">
+                <div class="app-toast-progress"></div>
+            </div>
+        </div>
+
+        <!-- 1. Barra de Titulo -->
+        <div id="custom-titlebar">
+            <div id="custom-titlebar-title">ZionLyrics</div>
+            <div id="custom-titlebar-right-group">
+                <div id="custom-titlebar-actions">
+                    <div class="titlebar-btn"
+                         data-function="openAppMenu"
+                         data-i18n-tooltip="str97"
+                         data-tooltip="Configuraciones y más..."
+                         id="titlebar-menu-btn">
+                        <i data-lucide="menu"></i>
+                    </div>
+                </div>
+                <div id="custom-titlebar-controls">
+                    <div class="titlebar-btn"
+                         data-i18n-tooltip="str98"
+                         data-tooltip="Minimizar"
+                         id="tb-minimize">
+                        <i data-lucide="minimize"></i>
+                    </div>
+                    <div class="titlebar-btn"
+                         data-i18n-tooltip="str99"
+                         data-tooltip="Maximizar"
+                         id="tb-maximize">
+                        <i data-lucide="expand"></i>
+                    </div>
+                    <div class="titlebar-btn titlebar-btn-close"
+                         data-i18n-tooltip="str27"
+                         data-tooltip="Cerrar"
+                         id="tb-close">
+                        <i data-lucide="minimize-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 17. Reorganizar Layout -->
+        <div id="layout-edit-bar" class="layout-edit-bar">
+            <div class="leb-text">
+                <i data-lucide="layout-dashboard"></i>
+                <span data-i18n="str355">Reorganizar Layout</span>
+            </div>
+            <div class="leb-actions">
+                <div class="code-btn code-btn-cancel" data-function="restoreDefaultLayout">
+                    <span data-i18n="str356">Restaurar disposición predeterminada</span>
+                </div>
+                <div class="code-btn code-btn-primary" data-function="toggleLayoutEditMode">
+                    <span data-i18n="str357">Terminar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Columnas Principales -->
+        <div id="app">
+            <!-- Columna 1: Cantos (Peso 20) -->
+            <div class="col-panel" id="col-1" style="flex: 20; display: flex; flex-direction: column; padding: 4px;">
+                <div class="panel-header">
+                    <div class="drag-grip" data-i18n--tooltip="str320">
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                    </div>
+                    <span data-i18n="str2">Cantos</span>
+                    <!-- En la columna 1 (Cantos) -->
+                    <div class="header-actions" style="position: relative;">
+                        <div class="code-btn menu-btn"
+                             data-function="toggleDropdown"
+                             data-i18n-tooltip="str100"
+                             data-tooltip="Opciones de Cantos"
+                             role="button"
+                             style="padding: 2px 8px; font-size: 16px; line-height: 1; cursor: pointer;"
+                             tabindex="0">
+                            <i data-lucide="settings"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dd-item" data-function="openModal" data-function-arg1="agregar-coro-modal">
+                                <i data-lucide="square-plus"></i>
+                                <span data-i18n="str3">Agregar</span>
+                            </div>
+                            <div class="dd-item dd-danger" data-callback-function="closeAllDropdowns" data-function="removeChorus">
+                                <i data-lucide="square-minus"></i>
+                                <span data-i18n="str4">Quitar</span>
+                            </div>
+                            <div class="dd-sep">
+                            </div>
+                            <div class="dd-section-title" data-i18n="str5">
+                                Dispositivos de salida
+                            </div>
+                            <div class="dd-output-list" id="choruses-output-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="listview top-listview" id="list-cantos-top">
+                </div>
+                <div class="panel-subheader" data-i18n="str6">
+                    Estrofas
+                </div>
+                <div class="listview bottom-listview" id="list-cantos-bottom">
+                </div>
+            </div>
+
+            <!-- RESIZER 1 -->
+            <div class="col-resizer" data-left="col-1" data-right="col-2" data-i18n-tooltip="str296"></div>
+
+            <!-- Columna 2: Citas Bíblicas (Peso 25) -->
+            <div class="col-panel" id="col-2" style="flex: 25; display: flex; flex-direction: column; padding: 4px;">
+                <div class="panel-header">
+                    <div class="drag-grip" data-i18n--tooltip="str320">
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                    </div>
+                    <span data-i18n="str7">Citas Bíblicas</span>
+                    <div class="header-actions" style="position: relative;">
+                        <div class="code-btn menu-btn"
+                             data-function="toggleDropdown"
+                             data-i18n-tooltip="str101"
+                             data-tooltip="Opciones de Citas Bíblicas"
+                             role="button"
+                             style="padding: 2px 8px; font-size: 16px; line-height: 1; cursor: pointer;"
+                             tabindex="0">
+                            <i data-lucide="settings"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dd-item" data-function="openModal" data-function-arg1="agregar-biblia-modal">
+                                <i data-lucide="square-plus"></i>
+                                <span data-i18n="str3">Agregar</span>
+                            </div>
+                            <div class="dd-item dd-danger" data-function="removeBible">
+                                <i data-lucide="square-minus"></i>
+                                <span data-i18n="str4">Quitar</span>
+                            </div>
+                            <div class="dd-sep">
+                            </div>
+                            <div class="dd-section-title" data-i18n="str5">
+                                Dispositivos de salida
+                            </div>
+                            <div class="dd-output-list" id="bibles-output-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="listview top-listview" id="list-bibles-top">
+                </div>
+                <div class="panel-subheader" data-i18n="str8">
+                    Versículo
+                </div>
+                <div class="listview bottom-listview" id="list-bibles-bottom">
+                </div>
+            </div>
+
+            <!-- RESIZER 2 -->
+            <div class="col-resizer" data-left="col-2" data-right="col-3" data-i18n-tooltip="str296"></div>
+
+            <!-- Columna 3: Multimedia (Peso 20) -->
+            <div class="col-panel" id="col-3" style="flex: 20; display: flex; flex-direction: column; padding: 4px;">
+                <div class="panel-header">
+                    <div class="drag-grip" data-i18n--tooltip="str320">
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                    </div>
+                    <span data-i18n="str9">Multimedia</span>
+                    <div class="header-actions" style="position: relative;">
+                        <div class="code-btn menu-btn"
+                             data-function="toggleDropdown"
+                             data-i18n-tooltip="str102"
+                             data-tooltip="Opciones de Multimedia"
+                             role="button"
+                             style="padding: 2px 8px; font-size: 16px; line-height: 1; cursor: pointer;"
+                             tabindex="0">
+                            <i data-lucide="settings"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dd-item has-submenu" data-submenu="media-add-submenu">
+                                <i data-lucide="square-plus"></i>
+                                <span data-i18n="str3">Agregar</span>
+                                <i data-lucide="chevron-right" class="dd-submenu-arrow"></i>
+                                <div class="dropdown-menu submenu" id="media-add-submenu">
+                                    <div class="dd-item" data-function="addMedia">
+                                        <i data-lucide="image-plus"></i>
+                                        <span data-i18n="str9">Multimedia</span>
+                                    </div>
+                                    <div class="dd-item" data-callback-function="closeAllDropdowns" data-function="openSermonTitleModal">
+                                        <i data-lucide="text-cursor-input"></i>
+                                        <span data-i18n="str322">Título del sermón</span>
+                                    </div>
+                                    <div class="dd-item" data-callback-function="closeAllDropdowns" data-function="openWordyModal">
+                                        <i data-lucide="grid-3x3"></i>
+                                        <span data-i18n="str369">Palabras de estudio</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dd-item dd-danger" data-function="removeMedia">
+                                <i data-lucide="square-minus"></i>
+                                <span data-i18n="str4">Quitar</span>
+                            </div>
+                            <div class="dd-sep"></div>
+                            <div class="dd-item" data-function="openMediaPlaylistModal">
+                                <i data-lucide="list-video"></i>
+                                <span data-i18n="str154">Lista de reproducción</span>
+                            </div>
+                            <div class="dd-sep"></div>
+                            <div class="dd-section-title" data-i18n="str5">Dispositivos de salida</div>
+                            <div class="dd-output-list" id="media-output-list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="media-area"
+                     id="media-container"
+                     style="flex:1; min-height:0; position:relative; background:var(--panel-bg); border-radius:2px; margin:0; display:flex; flex-direction:column; overflow:hidden;">
+                    <div class="drop-zone-message" data-i18n="str10" id="drop-message">Suelta aquí los archivos multimedia</div>
+                    <div class="listview" id="list-media" style="flex:1; overflow-y:auto; border:none; margin:0; padding:0;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESIZER 3 -->
+            <div class="col-resizer" data-left="col-3" data-right="col-4" data-i18n-tooltip="str296"></div>
+
+            <!-- Columna 4: Proyección (Peso 23) -->
+            <div class="col-panel" id="col-4" style="flex: 23; display: flex; flex-direction: column; padding: 4px;">
+                <div class="panel-header">
+                    <div class="drag-grip" data-i18n--tooltip="str320">
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                        <div class="grip-line"></div><div class="grip-line"></div><div class="grip-line"></div>
+                    </div>
+                    <span data-i18n="str11">Proyección</span>
+                    <div class="header-actions" style="position: relative;">
+                        <div class="code-btn menu-btn"
+                             data-function="toggleDropdown"
+                             data-i18n-tooltip="str103"
+                             data-tooltip="Opciones de Proyección"
+                             role="button"
+                             style="padding: 2px 8px; font-size: 16px; line-height: 1; cursor: pointer;"
+                             tabindex="0">
+                            <i data-lucide="settings"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dd-item" data-function="openStageEditor" data-function-arg1="null" data-function-arg2="true">
+                                <i data-lucide="monitor-cog"></i>
+                                <span data-i18n="str12">Configurar todos</span>
+                            </div>
+                            <div class="dd-sep"></div>
+                            <div class="dd-item" data-function="openModal" data-function-arg1="configurar-marquesina">
+                                <i data-lucide="message-square-quote"></i>
+                                <span data-i18n="str13">Marquesina</span>
+                            </div>
+                            <div class="dd-sep"></div>
+                            <div class="dd-item" data-function="startAllProjectors">
+                                <i data-lucide="monitor-play"></i>
+                                <span data-i18n="str14">Iniciar todos</span>
+                            </div>
+                            <div class="dd-item" data-function="pauseAllProjectors">
+                                <i data-lucide="monitor-pause"></i>
+                                <span data-i18n="str15">Pausar todos</span>
+                            </div>
+                            <div class="dd-item dd-danger" data-function="stopAllProjectors">
+                                <i data-lucide="monitor-stop"></i>
+                                <span data-i18n="str16">Detener todos</span>
+                            </div>
+                            <div class="dd-sep"></div>
+                            <div class="dd-item dd-danger" data-function="clearAllProjectors">
+                                <i data-lucide="monitor-x"></i>
+                                <span data-i18n="str17">Limpiar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="projection-container"
+                     style="flex:1; display:flex; flex-direction:column; gap:6px; padding:4px; overflow-y:auto; background:#000; border:1px solid var(--border-dark); border-radius:2px; margin:0;">
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. Menu Global -->
+        <div class="dropdown-menu" id="app-menu">
+            <div class="dd-item" data-callback-function="closeAllDropdowns" data-function="toggleTheme">
+                <i data-lucide="sun"></i>
+                <span data-i18n="str90">Tema</span>
+            </div>
+            <div class="dd-item" data-callback-function="closeAllDropdowns" data-function="toggleLayoutEditMode">
+                <i data-lucide="move"></i>
+                <span data-i18n="str355">Reorganizar Layout</span>
+            </div>
+            <div class="dd-item" data-callback-function="closeAllDropdowns" data-function="checkForUpdates">
+                <i data-lucide="cloud-download"></i>
+                <span data-i18n="str91">Checar actualizaciones</span>
+            </div>
+            <div class="dd-sep"></div>
+            <div class="dd-item"
+                 data-callback-function="openOptionsModal"
+                 data-function="openModal"
+                 data-function-arg1="opciones-modal">
+                <i data-lucide="sliders-vertical"></i>
+                <span data-i18n="str39">Opciones</span>
+            </div>
+            <!--div class="dd-item"
+                 data-callback-function="closeAllDropdowns"
+                 data-function="openSermonTitleModal">
+                <i data-lucide="text-cursor-input"></i>
+                <span data-i18n="str322">Título del sermón</span>
+            </div-->
+            <div class="dd-item"
+                 data-callback-function="closeAllDropdowns"
+                 data-function="openModal"
+                 data-function-arg1="acerca-de-modal">
+                <i data-lucide="info"></i>
+                <span data-i18n="str92">Acerca de ZionLyrics</span>
+            </div>
+            <div class="dd-sep"></div>
+            <div class="dd-item" data-function="requestQuit" data-function-arg1="true">
+                <i data-lucide="refresh-cw"></i>
+                <span data-i18n="str93">Recargar aplicación</span>
+            </div>
+            <div class="dd-item"
+                 data-callback-function="closeAllDropdowns"
+                 data-function="window.electronAPI.openDevTools">
+                <i data-lucide="chevrons-left-right-ellipsis"></i>
+                <span data-i18n="str94">DevTools</span>
+            </div>
+            <div class="dd-sep"></div>
+            <div class="dd-item dd-danger" data-function="requestQuit">
+                <i data-lucide="log-out"></i>
+                <span data-i18n="str95">Salir</span>
+            </div>
+        </div>
+
+        <script type="importmap">
+            {
+              "imports": {
+                "@floating-ui/core": "./node_modules/@floating-ui/core/dist/floating-ui.core.mjs",
+                "@floating-ui/dom": "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs",
+                "@floating-ui/utils": "./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs",
+                "@floating-ui/utils/dom": "./node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs",
+                "lucide": "./node_modules/lucide/dist/esm/lucide.mjs",
+                "animejs": "./node_modules/animejs/dist/modules/index.js",
+                "sortablejs": "./node_modules/sortablejs/modular/sortable.complete.esm.js"
+              }
+            }
+        </script>
+        <script type="module" src="js/anim.js"></script>
+        <script type="module" src="js/rend-tooltip.js"></script>
+        <script type="module" src="js/rend-icon.js"></script>
+        <script type="module" src="js/rend-picker.js"></script>
+        <script type="module" src="js/rend-modal.js"></script>
+        <script type="module" src="js/tiptap.editor.bundle.js"></script>
+        <script src="node_modules/moveable/dist/moveable.min.js"></script>
+        <script src="js/lodash4.18.1.js"></script>
+        <script src="js/databind.js"></script>
+        <script src="js/debug.js"></script>
+        <script src="js/state.js"></script>
+        <script src="js/session.js"></script>
+        <script src="js/i18n.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/thumb.js"></script>
+        <script src="js/font.js"></script>
+        <script src="js/caret.js"></script>
+        <script src="js/chorus.js"></script>
+        <script src="js/chorus-editor.js"></script>
+        <script src="js/bible.js"></script>
+        <script src="js/media.js"></script>
+        <script src="js/wordy.js"></script>
+        <script src="js/displays.js"></script>
+        <script src="js/layer.js"></script>
+        <script src="js/marquee.js"></script>
+        <script src="js/modal.js"></script>
+        <script src="js/popover.js"></script>
+        <script src="js/visor-panel-fit.js"></script>
+        <script src="js/visor.js"></script>
+        <script src="js/controller.js"></script>
+        <script src="js/bible-catalog.js"></script>
+        <script src="js/color-picker.js"></script>
+        <script src="js/multi-picker.js"></script>
+        <script src="js/shadow-picker.js"></script>
+        <script src="js/stage-editor.js"></script>
+        <script src="js/submenu.js"></script>
+        <script src="js/events.js"></script>
+    </body>
+</html>

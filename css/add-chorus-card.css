@@ -1,0 +1,453 @@
+/* ==========================================================
+   CARDS DE CORO — modal "Agregar coro"
+   Base estructural: .app-card (app-card.css)
+   ========================================================== */
+
+.chorus-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+}
+
+.chorus-card-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.chorus-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chorus-card-meta {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.chorus-card-add {
+    flex-shrink: 0;
+    opacity: 0;
+    color: var(--active-border);
+    font-weight: 500;
+    transition: opacity 0.15s ease, background 0.15s ease;
+}
+.chorus-card:hover .chorus-card-add,
+.chorus-card.active .chorus-card-add {
+    opacity: 1;
+}
+.chorus-card .chorus-card-add:hover {
+    background: rgba(0, 120, 215, 0.1);
+}
+
+/* ==========================================================
+   FILTRO CON TAGS INLINE
+   ========================================================== */
+.chorus-filter-area {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+}
+
+.chorus-filter-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    min-height: 36px;
+    padding: 4px 6px 4px 10px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+.chorus-filter-field:focus-within {
+    border-color: var(--active-border);
+}
+
+.chorus-filter-chips {
+    display: contents;
+}
+
+/* Chip individual — color de fondo/base. El color de texto y fondo
+   por valor lo aplica app-card.css según data-value */
+.chorus-filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px 3px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1;
+    user-select: none;
+    flex-shrink: 0;
+    background: var(--code-btn-hover-bg);
+    color: var(--text-muted);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.chorus-filter-tag-x {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    font-size: 13px;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.7;
+    transition: background 0.12s ease, opacity 0.12s ease;
+}
+.chorus-filter-tag-x:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.chorus-filter-field input {
+    flex: 1 1 80px;
+    min-width: 80px;
+    border: none !important;
+    background: transparent !important;
+    padding: 4px 0 !important;
+    font-size: 13px;
+    color: var(--text-main);
+    outline: none !important;
+    box-shadow: none !important;
+    height: auto !important;
+}
+
+.chorus-filter-funnel-btn {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+    margin-left: auto;
+    transition: background 0.12s ease, color 0.12s ease;
+}
+.chorus-filter-funnel-btn:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+.chorus-filter-funnel-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+
+
+
+
+
+/* ==========================================================
+   PICKER DE FILTROS DE COROS — rediseño tipo "switch"
+   ========================================================== */
+.picker-popup.chorus-filter-picker {
+    padding: 14px 16px 12px 16px;
+}
+
+.chorus-filter-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: chorusFilterSlideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes chorusFilterSlideUp {
+    from { transform: translateY(12px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ---------- Header: tipos + switch de notación ---------- */
+.chorus-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.chorus-tipos {
+    display: flex;
+    gap: 6px;
+}
+
+.chorus-tipo-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+.chorus-tipo-btn:hover {
+    color: var(--text-main);
+    background: var(--code-btn-hover-bg);
+}
+.chorus-tipo-btn.is-on {
+    color: var(--text-main);
+    border-color: var(--tipo-color, var(--active-border));
+    background: var(--code-btn-hover-bg);
+    font-weight: 500;
+}
+.chorus-tipo-btn[data-value="Alabanza"]  { --tipo-color: #d97706; }
+.chorus-tipo-btn[data-value="Adoración"] { --tipo-color: #7c3aed; }
+
+/* ---------- Switch de notación (EN / LAT / +) ---------- */
+.chorus-notation-switch {
+    display: flex;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.chorus-notation-switch button {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-inline-start: 1px solid var(--border-light);
+}
+.chorus-notation-switch button:first-child {
+    border-inline-start: none;
+}
+.chorus-notation-switch button:hover {
+    color: var(--text-main);
+    background: var(--code-btn-hover-bg);
+}
+.chorus-notation-switch button.active {
+    background: var(--active-border);
+    color: #ffffff;
+}
+
+/* ---------- Cuerpo: columnas de notas ---------- */
+.chorus-filter-body {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+}
+
+.chorus-notes-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px 0 0 0;
+    min-width: 0;
+}
+
+/* Separador vertical entre columnas cuando ambas están visibles.
+   Propiedades lógicas → funciona en LTR y RTL sin override. */
+.chorus-filter-body[data-notation="both"] .chorus-notes-col + .chorus-notes-col {
+    border-inline-start: 1px solid var(--border-light);
+    padding-inline-start: 18px;
+    margin-inline-start: 18px;
+}
+
+.chorus-notes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.chorus-notes-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 4px;
+    opacity: 0.6;
+}
+
+/* ---------- Botón de nota ---------- */
+.chorus-note {
+    position: relative;
+    padding: 6px 4px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.chorus-note:hover {
+    color: var(--text-main);
+    background: var(--code-btn-hover-bg);
+}
+
+/* Línea diagonal cuando está OFF */
+.chorus-note::after {
+    content: '';
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 50%;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-12deg);
+    opacity: 0.55;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+/* Estado ON: sin línea, texto principal, borde del color de la nota */
+.chorus-note.is-on {
+    color: var(--text-main);
+    border-color: var(--note-color, var(--active-border));
+    background: var(--code-btn-hover-bg);
+    font-weight: 500;
+}
+.chorus-note.is-on::after {
+    opacity: 0;
+}
+
+/* ---------- Colores por nota (mismo esquema que los chips del filtro) ---------- */
+.chorus-note[data-value="Do"],  .chorus-note[data-value="Do#"], .chorus-note[data-value="Reb"],
+.chorus-note[data-value="C"],   .chorus-note[data-value="C#"],  .chorus-note[data-value="Db"] {
+    --note-color: #dc2626;
+}
+.chorus-note[data-value="Re"],  .chorus-note[data-value="Re#"], .chorus-note[data-value="Mib"],
+.chorus-note[data-value="D"],   .chorus-note[data-value="D#"],  .chorus-note[data-value="Eb"] {
+    --note-color: #ea580c;
+}
+.chorus-note[data-value="Mi"],  .chorus-note[data-value="E"] {
+    --note-color: #a16207;
+}
+.chorus-note[data-value="Fa"],  .chorus-note[data-value="Fa#"], .chorus-note[data-value="Solb"],
+.chorus-note[data-value="F"],   .chorus-note[data-value="F#"],  .chorus-note[data-value="Gb"] {
+    --note-color: #16a34a;
+}
+.chorus-note[data-value="Sol"], .chorus-note[data-value="Sol#"], .chorus-note[data-value="Lab"],
+.chorus-note[data-value="G"],   .chorus-note[data-value="G#"],  .chorus-note[data-value="Ab"] {
+    --note-color: #2563eb;
+}
+.chorus-note[data-value="La"],  .chorus-note[data-value="La#"], .chorus-note[data-value="Sib"],
+.chorus-note[data-value="A"],   .chorus-note[data-value="A#"],  .chorus-note[data-value="Bb"] {
+    --note-color: #4338ca;
+}
+.chorus-note[data-value="Si"],  .chorus-note[data-value="B"] {
+    --note-color: #9333ea;
+}
+
+.chorus-filter-body[data-notation="latino"] .chorus-notes-grid,
+.chorus-filter-body[data-notation="anglo"] .chorus-notes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+/* ==========================================================
+   PREVIEW DE COROS CON NOTAS/ACORDES
+   ========================================================== */
+
+/* Los contenedores necesitan line-height holgado para que el tag
+   de la línea 2 no choque con el texto de la línea 1. */
+#preview-text,
+#admin-preview-text {
+    line-height: 1.7;
+    overflow-x: auto;        /* scroll horizontal solo si el texto lo requiere */
+    overflow-y: auto;        /* scroll vertical heredado de .modal-box-scroll */
+    min-width: 0;            /* para que el flex no crezca más allá del panel */
+}
+
+.chorus-preview-note {
+    display: inline-block;
+    text-align: left;
+    vertical-align: baseline;
+    margin-inline-end: 4px;
+}
+
+.chorus-preview-note::before {
+    content: attr(data-note);
+    display: block;
+    font-size: 0.8em;
+    font-weight: 700;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.6;
+    white-space: nowrap;
+    margin-bottom: 2px;
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   PREVIEW DE COROS — entrada animada
+   ========================================================== */
+@keyframes chorusPreviewEnter {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.is-entering {
+    animation: chorusPreviewEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .is-entering {
+        animation: none;
+    }
+}
+
+
+/* ==========================================================
+   CHECKMARK DEL DEFAULT (biblia) — a la IZQUIERDA.
+   El slot reserva 18×18 SIEMPRE (default o no) para que todos
+   los títulos de biblia arranquen en la misma x.
+   ========================================================== */
+.bible-admin-check {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--active-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================
+   DANGER VARIANT del botón flotante (Quitar)
+   ========================================================== */
+.chorus-card .chorus-card-add.code-btn-danger {
+    color: #f0a0a0;
+}
+.chorus-card .chorus-card-add.code-btn-danger:hover {
+    color: #ff5555;
+    background: rgba(255, 0, 0, 0.1);
+}
+

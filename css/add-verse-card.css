@@ -1,0 +1,137 @@
+/* ==========================================================
+   MODAL "Agregar cita bíblica" — selector de libros/capítulos/versículos
+   ========================================================== */
+
+.bible-box-title {
+    padding: 8px 12px 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+/* Lista de libros */
+.bible-grid-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 6px 8px 6px;
+    min-height: 0;
+}
+.bible-list-item {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background 0.12s ease;
+    user-select: none;
+}
+.bible-list-item:hover {
+    background: var(--code-btn-hover-bg);
+}
+.bible-list-item.active {
+    background: var(--highlight-bg);
+    color: var(--active-border);
+    font-weight: 500;
+}
+
+/* Grids de capítulos y versículos */
+.bible-cell-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 12px 12px 12px;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    gap: 4px;
+    align-content: start;
+}
+.bible-chapters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+}
+
+.bible-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-main);
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: border-color 0.12s ease, background 0.12s ease,
+                color 0.12s ease, transform 0.08s ease;
+    user-select: none;
+    box-sizing: border-box;
+}
+.bible-cell:hover {
+    border-color: var(--active-border);
+    background: var(--code-btn-hover-bg);
+}
+.bible-cell:active {
+    transform: scale(0.94);
+}
+.bible-cell.active {
+    background: var(--active-border);
+    border-color: var(--active-border);
+    color: #ffffff;
+    font-weight: 600;
+}
+.bible-cell.range-start,
+.bible-cell.range-end {
+    background: var(--active-border);
+    border-color: var(--active-border);
+    color: #ffffff;
+    font-weight: 600;
+}
+.bible-cell.range-middle {
+    background: rgba(0, 120, 215, 0.15);
+    border-color: rgba(0, 120, 215, 0.35);
+    color: var(--text-main);
+}
+.bible-cell.range-middle:hover {
+    background: rgba(0, 120, 215, 0.25);
+}
+
+/* Lista de versículos seleccionados (preview) */
+.bible-selected-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 8px 12px 8px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.bible-selected-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+}
+.bible-selected-num {
+    flex: 0 0 32px;
+    font-weight: 600;
+    color: var(--active-border);
+    font-size: 13px;
+    text-align: center;
+}
+.bible-selected-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.bible-selected-empty {
+    padding: 12px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+}

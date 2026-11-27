@@ -1,0 +1,55 @@
+.chk-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 4px;
+    border-radius: 6px;
+    width: fit-content;
+    transition: background 0.15s ease;
+}
+.chk-custom:hover {
+    background: var(--code-btn-hover-bg);
+}
+.chk-custom input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.chk-custom .chk-box {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: var(--panel-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+.chk-custom:hover .chk-box {
+    border-color: var(--active-border);
+}
+.chk-custom input[type="checkbox"]:checked + .chk-box {
+    background: var(--active-border);
+    border-color: var(--active-border);
+}
+.chk-custom input[type="checkbox"]:checked + .chk-box::after {
+    content: '';
+    width: 11px;
+    height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+.chk-custom:active .chk-box {
+    transform: scale(0.94);
+}
+.chk-custom .chk-label {
+    font-size: 12px;
+    color: var(--text-main);
+    white-space: nowrap;
+}

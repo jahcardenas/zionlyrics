@@ -1,0 +1,48 @@
+        <!-- 5. Agregar Coro a Presentación -->
+        <div class="modal-overlay" id="agregar-coro-modal">
+            <div class="modal-content" style="width: 900px; height: 500px; background: var(--header-bg);">
+                <div class="modal-header" data-i18n="str30">Agregar coro a presentación</div>
+
+                <div class="modal-body">
+                    <div class="modal-box-row">
+                        <!-- Caja izquierda: lista + filtros -->
+                        <div class="modal-box modal-box-col" style="flex: 0 0 55%;">
+                            <div id="agregar-coro-rows" class="modal-box-scroll" style="padding: 5px;"></div>
+                            <div class="modal-box-footer chorus-filter-area">
+                                <div class="chorus-filter-field" id="chorus-filter-field">
+                                    <input id="agregar-coro-filter" type="text" placeholder="Filtro..."/>
+                                    <div class="chorus-filter-chips" id="chorus-filter-chips"></div>
+                                    <div class="chorus-filter-funnel-btn"
+                                         data-function="toggleChorusFilterBox"
+                                         data-i18n-tooltip="str146"
+                                         data-tooltip="Filtros de tipo y tono"
+                                         id="chorus-filter-funnel">
+                                        <i data-lucide="funnel"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Caja derecha: preview -->
+                        <div class="modal-box modal-box-col modal-box-pad" style="flex: 1;">
+                            <div data-i18n="str36"
+                                 style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                Vista previa
+                            </div>
+                            <div id="preview-text" class="modal-box-scroll"
+                                 style="margin-top: 10px; white-space: pre-wrap; font-size: 14px; color: var(--text-main);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-primary" data-function="confirmAddCoro">
+                        <span data-i18n="str37">Seleccionar</span>
+                    </div>
+                    <div class="code-btn code-btn-cancel" data-function="closeModal" data-function-arg1="agregar-coro-modal">
+                        <span data-i18n="str38">Cerrar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

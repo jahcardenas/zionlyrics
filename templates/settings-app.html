@@ -1,0 +1,266 @@
+        <!-- 6. Opciones -->
+        <div class="modal-overlay" id="opciones-modal">
+            <div class="modal-content" id="opciones-modal-content" style="width: 900px; height: 600px;">
+                <div class="modal-header" data-i18n="str39">Opciones</div>
+
+                <div class="modal-body">
+                    <div class="modal-box modal-tabs-box">
+                        <div class="modal-tabs">
+                            <div class="modal-tab active"
+                                 data-function="switchTab"
+                                 data-function-arg1="tab-opciones"
+                                 data-i18n="str39"
+                                 data-tab="tab-opciones">Opciones</div>
+                            <div class="modal-tab"
+                                 data-function="switchTab"
+                                 data-function-arg1="tab-monitores"
+                                 data-i18n="str289"
+                                 data-tab="tab-monitores">Monitores</div>
+                            <div class="modal-tab"
+                                 data-function="switchTab"
+                                 data-function-arg1="tab-cantos"
+                                 data-i18n="str2"
+                                 data-tab="tab-cantos">Cantos</div>
+                            <div class="modal-tab"
+                                 data-function="switchTab"
+                                 data-function-arg1="tab-biblias"
+                                 data-i18n="str40"
+                                 data-tab="tab-biblias">Biblias</div>
+                            <div class="modal-tab"
+                                 data-function="switchTab"
+                                 data-function-arg1="tab-fuentes"
+                                 data-i18n="str284"
+                                 data-tab="tab-fuentes">Fuentes</div>
+                            <div class="modal-tab" 
+                                 data-function="switchTab" 
+                                 data-function-arg1="tab-idiomas" 
+                                 data-i18n="str137"
+                                 data-tab="tab-idiomas">Idiomas</div>
+                        </div>
+
+                        <!-- TAB: OPCIONES -->
+                        <div class="tab-content active" id="tab-opciones">
+                            <div class="opciones-toolbar">
+                                <div class="code-btn" data-function="openMediaLibrary" data-function-arg1="manage">
+                                    <i data-lucide="images"></i>
+                                    <span data-i18n="str41">Galería</span>
+                                </div>
+                                <div class="code-btn" data-function="exportOptions">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str42">Exportar</span>
+                                </div>
+                                <div class="code-btn" data-function="importOptions">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str43">Importar</span>
+                                </div>
+                            </div>
+
+                            <div class="opciones-form">
+                                <div class="opciones-section">
+                                    <div class="opciones-label" data-i18n="str46">Coros inactivos</div>
+                                    <label class="chk-custom">
+                                        <input data-json-key="showInactive" data-type="checkbox" id="chk-inactive" type="checkbox" />
+                                        <span class="chk-box"></span>
+                                        <span class="chk-label" data-i18n="str47">Incluir coros inactivos en los filtros de búsqueda</span>
+                                    </label>
+                                </div>
+
+                                <div class="opciones-section">
+                                    <div class="opciones-label" data-i18n="str48">Ayudas visuales</div>
+                                    <div class="opciones-checks">
+                                        <label class="chk-custom">
+                                            <input data-function="toggleTooltips" data-json-key="showTooltips" data-type="checkbox" id="chk-tooltips" type="checkbox" />
+                                            <span class="chk-box"></span>
+                                            <span class="chk-label" data-i18n="str49">Mostrar tooltips</span>
+                                        </label>
+                                        <label class="chk-custom">
+                                            <input data-json-key="keepPreviousSelection" data-type="checkbox" id="chk-keep-selection" type="checkbox" />
+                                            <span class="chk-box"></span>
+                                            <span class="chk-label" data-i18n="str50">Mantener selección previa al cambiar entre coros, versos y multimedia</span>
+                                        </label>
+                                        <label class="chk-custom">
+                                            <input data-json-key="debugLogging" data-type="checkbox" id="chk-debug-log" type="checkbox" />
+                                            <span class="chk-box"></span>
+                                            <span class="chk-label" data-i18n="str51">Guardar logs de depuración</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="opciones-section">
+                                    <div class="opciones-label" data-i18n="str310">Sesiones</div>
+                                    <div class="opciones-checks">
+                                        <label class="chk-custom">
+                                            <input data-function="onSessionAutosaveToggle"
+                                                   data-json-key="sessionAutosave"
+                                                   data-type="checkbox"
+                                                   id="chk-session-autosave"
+                                                   type="checkbox" />
+                                            <span class="chk-box"></span>
+                                            <span class="chk-label" data-i18n="str311">Autoguardado de sesión</span>
+                                        </label>
+                                    </div>
+                                    <div class="opciones-row" id="session-auto-delete-row">
+                                        <label class="opciones-label" data-i18n="str312">Borrar sesiones antiguas cada</label>
+                                        <div class="cc-multi-btn"
+                                             data-function="openSinglePicker"
+                                             data-function-arg1="session-auto-delete"
+                                             data-json-key="sessionAutoDelete"
+                                             data-type="single-picker"
+                                             id="session-auto-delete-picker">
+                                            <span class="cc-multi-btn-label"></span>
+                                            <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--div class="opciones-section">
+                                    <label class="opciones-label" data-i18n="str137">Idioma</label>
+                                    <select id="locale-select" class="opciones-select" data-function="onLocaleChange"></select>
+                                </div-->
+                            </div>
+                        </div>
+
+                        <!-- TAB: MONITORES -->
+                        <div class="tab-content" id="tab-monitores">
+                            <div class="modal-box modal-box-col modal-box-pad" style="flex:1; background: var(--header-bg); padding: 10px; border-radius: 8px; overflow: hidden;">
+                                <div data-i18n="str289"
+                                     style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                    Monitores
+                                </div>
+                                <div id="admin-monitors-rows" class="modal-box-scroll"
+                                     style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; align-content: start;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: CANTOS -->
+                        <div class="tab-content" id="tab-cantos">
+                            <div class="opciones-toolbar">
+                                <div class="code-btn" data-function="openChorusEditor">
+                                    <i data-lucide="square-plus"></i>
+                                    <span data-i18n="str52">Nuevo</span>
+                                </div>
+                                <div class="code-btn" data-function="openEditCoro" id="btn-admin-edit">
+                                    <i data-lucide="square-pen"></i>
+                                    <span data-i18n="str53">Editar</span>
+                                </div>
+                                <div class="code-btn" data-function="exportChoruses">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str42">Exportar</span>
+                                </div>
+                                <div class="code-btn" data-function="importChoruses">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str43">Importar</span>
+                                </div>
+                            </div>
+
+                            <div class="modal-box-row" style="flex: 1; min-height: 0;">
+                                <!-- Caja izquierda: lista + filtro -->
+                                <div class="modal-box modal-box-col" style="flex: 0 0 55%; background: var(--header-bg); padding: 10px;">
+                                    <div id="admin-coros-rows" class="modal-box-scroll"></div>
+                                    <div class="modal-box-footer chorus-filter-area" style="background: var(--header-bg);">
+                                        <div class="chorus-filter-field" id="admin-filter-field">
+                                            <input id="admin-text-filter" type="text" placeholder="Filtro..."/>
+                                            <div class="chorus-filter-chips" id="admin-filter-chips"></div>
+                                            <div class="chorus-filter-funnel-btn"
+                                                 data-function="toggleAdminChorusFilterBox"
+                                                 data-i18n-tooltip="str146"
+                                                 data-tooltip="Filtros de tipo y tono"
+                                                 id="admin-filter-funnel">
+                                                <i data-lucide="funnel"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Caja derecha: preview -->
+                                <div class="modal-box modal-box-col modal-box-pad" style="flex: 1; background: var(--header-bg); padding: 10px;">
+                                    <div data-i18n="str36"
+                                         style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                        Vista previa
+                                    </div>
+                                    <div id="admin-preview-text" class="modal-box-scroll"
+                                         style="margin-top: 10px; white-space: pre-wrap; font-size: 14px; color: var(--text-main);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: BIBLIAS -->
+                        <div class="tab-content" id="tab-biblias">
+                            <div class="opciones-toolbar">
+                                <div class="code-btn" data-function="exportBibles">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str42">Exportar</span>
+                                </div>
+                                <div class="code-btn" data-function="importBibles">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str43">Importar</span>
+                                </div>
+                            </div>
+
+                            <div class="modal-box modal-box-col modal-box-pad" style="flex:1; background: var(--header-bg); padding: 10px; border-radius: 8px;">
+                                <div data-i18n="str266"
+                                     style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                    Biblias instaladas
+                                </div>
+                                <div id="admin-bibles-rows" class="modal-box-scroll"
+                                     style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: FUENTES -->
+                        <div class="tab-content" id="tab-fuentes">
+                            <div class="opciones-toolbar">
+                                <div class="code-btn" data-function="importFontFile">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str43">Importar</span>
+                                </div>
+                            </div>
+
+                            <div class="modal-box modal-box-col modal-box-pad" style="flex:1; background: var(--header-bg); padding: 10px; border-radius: 8px;">
+                                <div data-i18n="str286"
+                                     style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                    Fuentes disponibles para el contenido proyectado
+                                </div>
+                                <div id="admin-fonts-rows" class="modal-box-scroll"
+                                     style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: IDIOMAS -->
+                        <div class="tab-content" id="tab-idiomas">
+                            <div class="opciones-toolbar">
+                                <div class="code-btn" data-function="importLangFile">
+                                    <i data-lucide="import"></i>
+                                    <span data-i18n="str43">Importar</span>
+                                </div>
+                            </div>
+                            <div class="modal-box modal-box-col modal-box-pad" style="flex:1; background: var(--header-bg); padding: 10px; border-radius: 8px;">
+                                <div data-i18n="str366"
+                                     style="font-weight: 500; color: var(--text-main); padding-bottom: 5px;">
+                                    Idiomas importados
+                                </div>
+                                <div id="admin-languages-rows" class="modal-box-scroll admin-rows-list"
+                                     style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; align-content: start;/*margin-top: 10px; display: flex; flex-direction: column; gap: 6px;*/">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-primary" data-function="saveOptions">
+                        <span data-i18n="str57">Guardar</span>
+                    </div>
+                    <div class="code-btn code-btn-cancel"
+                         data-callback-function="closeOptionsModal"
+                         data-function="closeModal"
+                         data-function-arg1="opciones-modal">
+                        <span data-i18n="str38">Cerrar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

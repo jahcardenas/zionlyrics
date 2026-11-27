@@ -1,0 +1,94 @@
+        <!-- 14. Editor de coros -->
+        <div class="modal-overlay" id="editor-coro-modal">
+            <div class="modal-content" style="width: 800px; height: 90vh;">
+                <div class="modal-header">
+                    <span id="editor-coro-title" data-i18n="str18">Nuevo Coro</span>
+                </div>
+                <div class="modal-body" style="padding: 10px;">
+                    <div class="modal-box modal-box-col" style="flex: 1; overflow: hidden; border:none;">
+
+                        <div class="chorus-editor-toolbar">
+                            <div class="chorus-editor-row">
+                                <input id="editor-coro-nombre" type="text"
+                                       class="chorus-editor-input"
+                                       data-i18n-placeholder="str19"
+                                       data-json-key="nombre"
+                                       data-type="text"
+                                       placeholder="Nombre"/>
+
+                                <input id="editor-coro-autor" type="text"
+                                       class="chorus-editor-input"
+                                       data-json-key="autor"
+                                       data-type="text"
+                                       data-i18n-placeholder="str282"
+                                       placeholder="Autor / Compositor"/>
+
+                                <div class="chorus-editor-btn chorus-editor-tipo-btn"
+                                     id="editor-coro-tipo-btn"
+                                     data-i18n-tooltip="str34"
+                                     data-value=""
+                                     data-tooltip="Tipo">
+                                    <i data-lucide="metronome"></i>
+                                    <span class="editor-tipo-label"></span>
+                                </div>
+
+                                <div class="chorus-editor-btn chorus-editor-tono-btn"
+                                     id="editor-coro-tono-btn"
+                                     data-json-key="tono"
+                                     data-value=""
+                                     data-i18n-tooltip="str33"
+                                     data-tooltip="Tono">
+                                    <i data-lucide="list-music"></i>
+                                    <span class="editor-tono-label"></span>
+                                </div>
+
+                                <div class="chorus-editor-btn"
+                                     id="editor-coro-acordes-btn"
+                                     data-i18n-tooltip="str270"
+                                     data-tooltip="Acordes">
+                                    <i data-lucide="music-2"></i>
+                                </div>
+
+                                <div class="chorus-editor-btn"
+                                     data-editor-cmd="insertBreak"
+                                     data-i18n-tooltip="str271"
+                                     data-tooltip="Insertar división de estrofa">
+                                    <i data-lucide="scissors"></i>
+                                </div>
+
+                                <div class="chorus-editor-sep"></div>
+
+                                <div class="chorus-editor-btn chorus-editor-repites"
+                                     data-editor-cmd="repite"
+                                     data-i18n-tooltip="str268"
+                                     data-tooltip="Repetir">
+                                    <i data-lucide="repeat"></i>
+                                    <span class="repites-count">1</span>
+                                </div>
+                            </div>
+
+                            <div class="chorus-editor-row chorus-editor-row-secondary" id="chorus-editor-row-secondary">
+                                <div class="chorus-editor-btn" data-editor-cmd="bold" data-i18n-tooltip="str112" data-tooltip="Negritas">
+                                    <i data-lucide="bold"></i>
+                                </div>
+                                <div class="chorus-editor-btn" data-editor-cmd="italic">
+                                    <i data-lucide="italic"></i>
+                                </div>
+                                <div class="chorus-editor-sep"></div>
+                            </div>
+                        </div>
+
+                        <div class="chorus-editor-content" id="chorus-editor-content"></div>
+
+                    </div>
+                </div>
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-primary" data-function="saveChorusEditor">
+                        <span data-i18n="str57">Guardar</span>
+                    </div>
+                    <div class="code-btn code-btn-cancel" data-function="closeChorusEditor">
+                        <span data-i18n="str27">Cancelar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

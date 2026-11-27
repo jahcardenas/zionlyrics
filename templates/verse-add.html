@@ -1,0 +1,54 @@
+        <!-- 8. Agregar Cita Bíblica -->
+        <div class="modal-overlay" id="agregar-biblia-modal">
+            <div class="modal-content" style="width: 800px; height: 600px;">
+                <div class="modal-header" data-i18n="str60">Agregar cita bíblica</div>
+
+                <div class="modal-body" style="gap: 5px 10px;">
+                    <div class="modal-box-row">
+
+                        <!-- Caja de LIBROS -->
+                        <div class="modal-box modal-box-col" style="flex: 0 0 150px;">
+                            <div class="bible-box-title" data-i18n="str150">Libros</div>
+                            <div class="bible-grid-list" id="bible-books-list"></div>
+                        </div>
+
+                        <!-- Caja de CAPÍTULOS -->
+                        <div class="modal-box modal-box-col" style="flex: 0 0 250px;">
+                            <div class="bible-box-title" data-i18n="str151">Capítulos</div>
+                            <div class="bible-cell-grid bible-chapters-grid" id="bible-chapters-grid"></div>
+                        </div>
+
+                        <!-- Caja de VERSÍCULOS -->
+                        <div class="modal-box modal-box-col" style="flex: 1;">
+                            <div class="bible-box-title" data-i18n="str152">Versículos</div>
+                            <div class="bible-cell-grid bible-verses-grid" id="bible-verses-grid"></div>
+                        </div>
+
+                    </div>
+                    <div class="modal-box modal-box-col" id="bible-selected-box" style="flex: 0 0 auto; max-height: 220px;">
+                        <div class="bible-box-title" data-i18n="str153">Texto Bíblico</div>
+                        <div class="bible-selected-list" id="bible-selected-list"></div>
+                    </div>
+
+                        <div class="modal-box modal-box-col modal-box-pad" style="flex: 0 0 auto; ">
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-main);">
+                                <input id="bible-text-filter" type="text" style="flex: 1;" data-i18n-placeholder="str35"/>
+                            </label>
+                        </div>
+
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn" data-function="openMultiVerseModal">
+                        <i data-lucide="layers"></i>
+                        <span data-i18n="str379">Multi-versión</span>
+                    </div>
+                    <div class="code-btn code-btn-primary" data-function="confirmAddBible">
+                        <span data-i18n="str37">Seleccionar</span>
+                    </div>
+                    <div class="code-btn code-btn-cancel" data-function="closeModal" data-function-arg1="agregar-biblia-modal">
+                        <span data-i18n="str38">Cerrar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

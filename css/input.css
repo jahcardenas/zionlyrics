@@ -1,0 +1,111 @@
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+textarea {
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    width: 100%;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+    border-color: var(--active-border) !important;
+    outline: none;
+}
+
+input[type="text"]:disabled,
+input[type="number"]:disabled,
+textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================================
+   EXCEPCIONES
+   ========================================================== */
+
+/* El input de hex del color picker usa monospace y no ocupa 100% */
+.cc-cp-hex {
+    width: auto;
+    padding: 6px 8px;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+}
+
+/* ==========================================================
+   RANGE INPUTS — área de arrastre amplia (estilo Spotify)
+   ========================================================== */
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    /* Hitbox vertical amplio sin cambiar el visual */
+    padding: 10px 0;
+    margin: -10px 0;
+    height: 24px;
+    box-sizing: content-box;
+}
+
+/* Track visual (barra) */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-light);
+}
+
+/* Thumb (bolita) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--text-main);
+    border: none;
+    margin-top: -5px;
+    cursor: grab;
+    /* Sombra invisible que extiende el área de hit del thumb */
+    box-shadow: 0 0 0 8px transparent;
+    transition: box-shadow 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 8px var(--code-btn-hover-bg);
+}
+input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    box-shadow: 0 0 0 8px var(--code-btn-hover-bg);
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-light);
+}
+input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--text-main);
+    border: none;
+    cursor: grab;
+}
+

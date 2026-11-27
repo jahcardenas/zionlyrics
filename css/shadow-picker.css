@@ -1,0 +1,126 @@
+.cc-sp-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+.cc-sp-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-main);
+}
+.cc-sp-label {
+    flex: 0 0 68px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+.cc-sp-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.cc-sp-opacity {
+    flex: 1;
+}
+.cc-sp-value {
+    flex: 0 0 34px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.cc-sp-row input[type="number"] {
+    width: 60px;
+    padding: 4px 6px;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 12px;
+}
+.cc-sp-preview {
+    background: #d8d8d8;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cc-sp-preview-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+.cc-sp-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+/* Botón de sombra en los formularios */
+.cc-shadow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+    background: transparent;
+    transition: color 0.15s ease, background 0.15s ease;
+    user-select: none;
+}
+.cc-shadow-btn:hover {
+    color: var(--text-main);
+    background: var(--code-btn-hover-bg);
+}
+.cc-shadow-btn.is-enabled {
+    color: var(--active-border);
+}
+
+/* Fila de offsets X/Y sin desbordar */
+.cc-sp-row-offset .cc-sp-label {
+    flex: 0 0 16px;
+    text-align: center;
+    color: var(--text-muted);
+}
+.cc-sp-row-offset input[type="number"] {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+}
+
+.cc-sp-row-stack {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+}
+.cc-sp-row-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cc-sp-row-head .cc-sp-label {
+    flex: 0 0 auto;
+}
+.cc-sp-row-head .cc-sp-value {
+    flex: 0 0 auto;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.shadow-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

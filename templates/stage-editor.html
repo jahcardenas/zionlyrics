@@ -1,0 +1,42 @@
+<!-- 16. Editor de contenido -->
+<div class="modal-overlay" id="stage-editor-modal">
+    <div class="modal-content" style="width: 1400px; height: 90vh;">
+        <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>
+                <span>Editor de layout:</span>
+                <span id="stage-editor-monitor-label" style="margin-left: 6px; opacity: 0.75;"></span>
+            </span>
+        </div>
+
+        <div class="modal-body" style="padding: 12px; display: flex; flex-direction: row; flex: 1; gap: 12px; min-height: 0; overflow: hidden;">
+            <div class="rail" id="stage-editor-rail"></div>
+            <div class="stage-wrap" id="stage-editor-wrap">
+                <div class="stage" id="stage-editor-stage">
+                    <div class="block fixed bg" data-key="bg" data-type="bg"></div>
+                    <div class="block panel" data-key="panel" data-type="panel"></div>
+                    <div class="block text coro"    data-key="coro"    data-type="text"><div class="t">Texto de ejemplo del coro<br>segunda línea del coro</div></div>
+                    <div class="block text ref"     data-key="ref"     data-type="text"><div class="t">Referencia 0:0</div></div>
+                    <div class="block text verse"   data-key="verse"   data-type="text"><div class="t">Texto de ejemplo del versículo; aquí fluye el texto bíblico completo.</div></div>
+                    <div class="block text version" data-key="version" data-type="text"><div class="t">VERSIÓN</div></div>
+                    <div class="block placeholder" data-key="placeholder" data-type="image"><img style="width:100%; height:100%; object-fit:contain; pointer-events:none;"></div>
+                    <div class="block text sermon"  data-key="sermon"  data-type="text"><div class="t">Título del Sermón de Ejemplo</div></div>
+                    <div class="block text wordy wordy1" data-key="wordy1" data-type="text"><div class="t" dir="auto">“CHEMAH”</div></div>
+                    <div class="block text wordy wordy2" data-key="wordy2" data-type="text"><div class="t" dir="auto">Desagrado o indignación</div></div>
+                    <div class="block text wordy wordy3" data-key="wordy3" data-type="text"><div class="t" dir="auto">Núm. 25:8-11; Jer. 21:5-7</div></div>
+                    <div class="block logo"         data-key="logo"    data-type="image"><img id="stage-editor-logo" alt="logo"></div>
+                    <div class="block frame" data-key="margin" data-type="margin"></div>
+                </div>
+                <div class="ctx" id="stage-editor-ctx"></div>
+            </div>
+        </div>
+
+        <div class="modal-footer modal-footer-right">
+            <div class="code-btn code-btn-primary" data-function="saveStageEditor">
+                <span data-i18n="str57">Guardar</span>
+            </div>
+            <div class="code-btn code-btn-cancel" data-function="closeStageEditor">
+                <span data-i18n="str27">Cancelar</span>
+            </div>
+        </div>
+    </div>
+</div>

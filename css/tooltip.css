@@ -1,0 +1,75 @@
+/* Base del tooltip flotante */
+.zion-floating-tooltip {
+    position: fixed;
+    padding: 6px 10px;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2147483647;
+}
+
+/* Temas con fondo sólido garantizado */
+.zion-floating-tooltip.zionlyrics {
+    background-color: #1a73e8 !important;
+}
+
+.zion-floating-tooltip.zionlyrics-red {
+    background-color: #FF4040 !important;
+}
+
+/* Flecha */
+.zion-floating-tooltip .zion-tooltip-arrow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    transform: rotate(45deg);
+}
+
+/* ===== Animación: shift-away ===== */
+.zion-floating-tooltip[data-animation="shift-away"] {
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.zion-floating-tooltip[data-animation="shift-away"][data-placement^="top"] {
+    transform: translateY(10px);
+}
+.zion-floating-tooltip[data-animation="shift-away"][data-placement^="bottom"] {
+    transform: translateY(-10px);
+}
+.zion-floating-tooltip[data-animation="shift-away"][data-placement^="left"] {
+    transform: translateX(10px);
+}
+.zion-floating-tooltip[data-animation="shift-away"][data-placement^="right"] {
+    transform: translateX(-10px);
+}
+
+.zion-floating-tooltip[data-animation="shift-away"][data-state="visible"] {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ===== Animación: tada ===== */
+@keyframes zion-tada {
+    0%                    { transform: scale(1); }
+    10%, 20%               { transform: scale(0.9) rotate(-3deg); }
+    30%, 50%, 70%, 90%      { transform: scale(1.1) rotate(3deg); }
+    40%, 60%, 80%           { transform: scale(1.1) rotate(-3deg); }
+    100%                    { transform: scale(1) rotate(0); }
+}
+
+.zion-floating-tooltip[data-animation="tada"] {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.zion-floating-tooltip[data-animation="tada"][data-state="visible"] {
+    opacity: 1;
+    animation: zion-tada 0.3s ease-in-out;
+}

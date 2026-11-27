@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyector ZionLyrics</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/visor.css">
+    <style>
+        html, body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+        #proy-content {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="proy-content"></div>
+
+    <script src="js/debug.js"></script>
+    <script src="js/font.js"></script>
+    <script src="js/visor-panel-fit.js"></script>
+    <script src="js/visor.js"></script>
+    <script>
+        window.zionLyricsObj = { debugLogging: true };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const displayId = urlParams.get('id');
+        const channel = new BroadcastChannel(`zionlyrics-proyector-${displayId}`);
+
+        let stage = null;
+        const pending = [];
+
+        // Función de reporte
+        function reportError(msg) {
+            try {
+                window.electronAPI.sendProjectorError(displayId, msg);
+            } catch (_) {
+                console.error('[proyector] No se pudo reportar el error al controlador:', msg);
+            }
+        }
+
+        // Atrapar errores no capturados (ej. scripts rotos)
+        window.onerror = (message) => {
+            reportError(typeof message === 'string' ? message : 'Error desconocido');
+        };
+
+        function handle(data) {
+            if (!stage) return false;
+
+            if (data.action === 'apply') {
+                stage.applyState(data.payload);
+
+                setTimeout(() => {
+                    const v = document.querySelector('#proy-content #projected-media');
+                    if (v && v.tagName === 'VIDEO') {
+                        v.removeAttribute('controls');
+                        v.muted = false;
+                        v.play().catch(() => {});
+                    }
+                }, 400);
+            } else if (data.action === 'video-sync') {
+                const p = data.payload || {};
+                const apply = (vid) => {
+                    if (p.action === 'play')   vid.play().catch(() => {});
+                    if (p.action === 'pause')  vid.pause();
+                    if (p.action === 'seek')   vid.currentTime = p.time;
+                    if (p.action === 'volume') vid.volume = Math.max(0, Math.min(1, p.value));
+                };
+                const v = $$('#projected-media');
+                if (v) apply(v);
+                else {
+                    const t = setInterval(() => {
+                        const vv = $$('#projected-media');
+                        if (vv) { clearInterval(t); apply(vv); }
+                    }, 100);
+                    setTimeout(() => clearInterval(t), 5000);
+                }
+            } else if (data.action === 'close') {
+                window.close();
+            }
+            return true;
+        }
+
+        channel.onmessage = (e) => {
+            if (!handle(e.data)) pending.push(e.data);
+        };
+
+        (async () => {
+            try {
+                if (window.Fonts) {
+                    const scanned = await window.Fonts.scan();
+                    await window.Fonts.registerAll(scanned);
+                }
+
+                const result = await window.electronAPI.loadFile('templates/visor.html');
+                if (!result || !result.success || !result.data) {
+                    throw new Error('No se pudo cargar visor.html (la plantilla está vacía o falta).');
+                }
+
+                const host = $('proy-content');
+                stage = ProyVisor.create(host, result.data);
+                pending.splice(0).forEach(handle);
+                channel.postMessage({ action: 'sync-request' });
+            } catch (err) {
+                console.error('[proyector] Error crítico:', err);
+                reportError(err.message || String(err));
+            }
+        })();
+    </script>
+</body>
+</html>

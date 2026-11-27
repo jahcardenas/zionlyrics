@@ -1,0 +1,125 @@
+/* ==========================================================
+   CARDS DE MULTIMEDIA — columna Multimedia (playlist style)
+   Base estructural: .app-card (app-card.css)
+   ========================================================== */
+.media-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+}
+
+/* Miniatura cuadrada, tipo Spotify */
+.media-card-thumb {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--code-btn-hover-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.media-card-thumb img,
+.media-card-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* Ícono de fallback si el archivo no carga */
+.media-card-thumb.is-missing::after {
+    content: '⚠';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #d94f4f;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.media-card-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.media-card-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.media-card-meta {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.media-card-meta-sep::before {
+    content: '·';
+    margin-right: 8px;
+    opacity: 0.5;
+}
+
+/* Acciones hover-only: monitor (futuro) + quitar */
+.media-card-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.media-card:hover .media-card-actions,
+.media-card.active .media-card-actions {
+    opacity: 1;
+}
+
+/* ==========================================================
+   ÁREA MULTIMEDIA — contenedor de la columna 3
+   (antes en listview.css)
+   ========================================================== */
+.media-area {
+    transition: all 0.3s;
+}
+.media-area.drag-over {
+    border: 2px dashed var(--active-border);
+    background: var(--highlight-bg);
+    box-shadow: inset 0 0 10px rgba(0, 120, 215, 0.2);
+}
+
+.drop-zone-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    font-weight: bold;
+    display: none;
+    font-size: 14px;
+}
+.media-area.drag-over .drop-zone-message {
+    display: block;
+}
+.media-area.drag-over .media-list {
+    opacity: 0.4;
+}
+
+.media-list {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 4px;
+    gap: 2px;
+    overflow-y: auto;
+}

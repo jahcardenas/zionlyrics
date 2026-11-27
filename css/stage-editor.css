@@ -1,0 +1,324 @@
+/* ==========================================================
+   STAGE EDITOR — editor visual de layout
+   ========================================================== */
+
+#stage-editor-modal .modal-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 12px;
+    min-height: 0;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    container-type: size;
+    /* el 16:9 más grande que cabe junto a la barra izquierda (76px + 12px de separación) */
+    --stage-w: min(calc(100cqw - 88px), calc(100cqh * 16 / 9));
+}
+
+/* ---------- Rail (barra izquierda) ---------- */
+#stage-editor-modal .rail {
+    flex: 0 0 76px;
+    height: calc(var(--stage-w) * 9 / 16);
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+}
+
+#stage-editor-modal .rail button {
+    border: 0;
+    background: transparent;
+    border-radius: 10px;
+    padding: 8px 2px;
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+    min-height: 0;
+    font-family: var(--font-content, -apple-system, sans-serif) !important;
+    transition: background 0.12s ease;
+}
+
+#stage-editor-modal .rail button svg { width: 20px; height: 20px; }
+
+#stage-editor-modal .rail button:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+#stage-editor-modal .rail button.active {
+    background: var(--highlight-bg);
+    color: var(--active-border);
+}
+
+/* ---------- Stage ---------- */
+/* El wrap mide exactamente 16:9; el stage lo llena al 100% (ya no hay barras negras) */
+#stage-editor-modal .stage-wrap {
+    flex: none;
+    width: var(--stage-w);
+    aspect-ratio: 16 / 9;
+    position: relative;
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#stage-editor-modal .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    overflow: hidden;
+    background: #111;
+}
+
+/* ---------- Bloques ---------- */
+#stage-editor-modal .block {
+    position: absolute;
+    overflow: hidden;
+    color: #fff;
+    user-select: none;
+    cursor: grab;
+}
+
+#stage-editor-modal .block.fixed { cursor: default; }
+#stage-editor-modal .block:active:not(.fixed) { cursor: grabbing; }
+
+#stage-editor-modal .block.text {
+    overflow: visible;
+    padding: .2em;
+    width: fit-content;
+    font-size: calc(var(--fs, 3) * 1cqi);
+    font-family: var(--font-content, sans-serif);
+}
+
+#stage-editor-modal .block.bold { font-weight: 700; }
+#stage-editor-modal .block.italic { font-style: italic; }
+
+#stage-editor-modal .block.bg {
+    background: linear-gradient(135deg, #1a2238, #3a2a4d);
+    pointer-events: none;
+    outline: none;
+    z-index: 1;
+}
+
+#stage-editor-modal .block.panel {
+    background: color-mix(in srgb, var(--pc, #000) 45%, transparent);
+    border-radius: 1.2cqi;
+    z-index: 2;
+}
+
+#stage-editor-modal .block.text,
+#stage-editor-modal .block.logo { z-index: 3; }
+
+#stage-editor-modal .block.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+#stage-editor-modal .block .t { white-space: pre-wrap; }
+#stage-editor-modal .ref     { font-weight: 700; white-space: nowrap; }
+#stage-editor-modal .version { opacity: .75; white-space: nowrap; }
+#stage-editor-modal .verse   { line-height: 1.25; }
+#stage-editor-modal .coro    { line-height: 1.2; }
+
+/* ---------- Marco de selección ---------- */
+#stage-editor-modal .sel-box {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    box-sizing: border-box;
+    border: 3px dashed #fff;
+    filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, .55));
+}
+
+#stage-editor-modal .marquee {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    z-index: 20;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, .14);
+}
+
+/* ---------- Handles de Moveable ---------- */
+#stage-editor-modal .moveable-control {
+    width: 12px !important;
+    height: 12px !important;
+    margin: -6px 0 0 -6px !important;
+    background: #fff !important;
+    border: 1px solid rgba(0, 0, 0, .2) !important;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .45);
+}
+#stage-editor-modal .moveable-control[data-direction="e"],
+#stage-editor-modal .moveable-control[data-direction="w"] {
+    width: 6px !important;
+    height: 22px !important;
+    margin: -11px 0 0 -3px !important;
+    border-radius: 4px !important;
+}
+
+/* ---------- Toolbar contextual ---------- */
+#stage-editor-modal .ctx {
+    position: absolute;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    gap: 2px;
+    padding: 6px;
+    white-space: nowrap;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .3);
+}
+
+#stage-editor-modal .ctx button {
+    border: 0;
+    background: transparent;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font: inherit;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+#stage-editor-modal .ctx button:hover { background: var(--code-btn-hover-bg); }
+#stage-editor-modal .ctx button.on    { background: var(--highlight-bg); color: var(--active-border); }
+
+#stage-editor-modal .ctx input[type=color] {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+#stage-editor-modal .ctx .sep {
+    width: 1px;
+    height: 22px;
+    background: var(--border-light);
+    margin: 0 4px;
+}
+
+#stage-editor-modal .ctx .lbl {
+    padding: 0 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ---------- Guías de snap ---------- */
+#stage-editor-modal .guide {
+    position: absolute;
+    display: none;
+    z-index: 12;
+    pointer-events: none;
+    background: #ff3ea5;
+    box-shadow: 0 0 0 .5px rgba(255, 62, 165, .45);
+}
+/* ---------- Escenas: elementos quitados e interruptores ---------- */
+#stage-editor-modal .block.off { display: none !important; }
+
+#stage-editor-modal .rail button.toggle { opacity: .55; }
+#stage-editor-modal .rail button.toggle.on {
+    opacity: 1;
+    background: var(--highlight-bg);
+    color: var(--active-border);
+}
+#stage-editor-modal .rail button.disabled { opacity: .25; pointer-events: none; }
+
+#stage-editor-modal .ctx button svg { width: 18px; height: 18px; display: block; }
+#stage-editor-modal .ctx button.trash { color: #d64545; }
+
+/* ---------- Márgenes (área segura) ---------- */
+#stage-editor-modal .block.frame {
+    border: 2px dashed #00e0ff;
+    background: transparent;
+    box-sizing: border-box;
+    pointer-events: none;      /* solo se selecciona desde la barra izquierda */
+    overflow: visible;
+    cursor: default;
+    z-index: 8;
+}
+#stage-editor-modal .ctx button.mreset { color: var(--active-border); }
+
+/* Tiradores de las 4 líneas del margen: se arrastra la línea directamente */
+#stage-editor-modal .fh { position: absolute; pointer-events: auto; z-index: 9; }
+#stage-editor-modal .fh-n, #stage-editor-modal .fh-s { left: 0; right: 0; height: 10px; cursor: ns-resize; }
+#stage-editor-modal .fh-e, #stage-editor-modal .fh-w { top: 0; bottom: 0; width: 10px; cursor: ew-resize; }
+#stage-editor-modal .fh-n { top: -5px; }    #stage-editor-modal .fh-s { bottom: -5px; }
+#stage-editor-modal .fh-w { left: -5px; }   #stage-editor-modal .fh-e { right: -5px; }
+#stage-editor-modal .fh::after {
+    content: ''; position: absolute; background: #00e0ff; opacity: 0; transition: opacity .1s;
+}
+#stage-editor-modal .fh-n::after, #stage-editor-modal .fh-s::after { left: 0; right: 0; top: 3px; height: 4px; }
+#stage-editor-modal .fh-e::after, #stage-editor-modal .fh-w::after { top: 0; bottom: 0; left: 3px; width: 4px; }
+#stage-editor-modal .fh:hover::after, #stage-editor-modal .fh.drag::after { opacity: .95; }
+
+#stage-editor-modal .margin-tip {
+    position: absolute; z-index: 60; display: none; pointer-events: none;
+    background: #00e0ff; color: #00323b; font: 600 11px var(--font-ui, sans-serif);
+    padding: 2px 7px; border-radius: 6px; transform: translate(-50%, -50%);
+}
+
+/* Botón Multi versión: contador de versículos (2 o 3) */
+#stage-editor-modal .rail button { position: relative; }
+#stage-editor-modal .rail .badge {
+    position: absolute; top: 3px; right: 9px; display: none;
+    font: 700 9px sans-serif; font-style: normal;
+    background: var(--active-border); color: #fff; border-radius: 8px; padding: 1px 5px;
+}
+#stage-editor-modal .rail .badge:not(:empty) { display: block; }
+
+/* Reset armado (pide un segundo clic) */
+#stage-editor-modal .rail button.armed { color: #d64545; background: rgba(214, 69, 69, .12); }
+
+
+#stage-editor-modal .block.placeholder {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+#stage-editor-modal .block.placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+
+/* ---------- Wordy: cada columna es un texto independiente ---------- */
+#stage-editor-modal .wordy .t { line-height: 1.2; }
+/* Aviso sobre la primera columna: las demás filas copian el formato de esta fila */
+#stage-editor-modal .block.wordy1::before {
+    content: 'Fila 1 · las demás filas copian este formato';
+    position: absolute;
+    left: 0;
+    top: -1.7em;
+    font: 600 11px/1 var(--font-ui, sans-serif);
+    white-space: nowrap;
+    color: #fff;
+    opacity: .7;
+    background: rgba(0, 0, 0, .45);
+    padding: 3px 7px;
+    border-radius: 6px;
+    pointer-events: none;
+}

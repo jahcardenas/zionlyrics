@@ -1,0 +1,455 @@
+/* ==========================================================
+   EDITOR DE COROS V2 — Tiptap
+   ========================================================== */
+:root {
+    --chorus-note-gap: 6px;
+}
+
+.chorus-editor-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.15s ease, color 0.15s ease;
+    user-select: none;
+}
+
+.chorus-editor-btn:hover {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+.chorus-editor-btn svg {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.chorus-editor-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border-light);
+    margin: 0 6px;
+    flex-shrink: 0;
+}
+
+.chorus-editor-repites .repites-count {
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 14px;
+    text-align: center;
+}
+
+.chorus-editor-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    min-height: 0;
+    border-radius: 8px;
+    background: var(--panel-bg);
+}
+
+.chorus-editor-prosemirror {
+    outline: none;
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.015em;
+    min-height: 100%;
+    transition: line-height 0.3s ease;
+    font-variation-settings: "opsz" 14;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+[data-theme="dark"] .chorus-editor-prosemirror {
+    font-weight: 350;
+}
+
+.chorus-editor-prosemirror.has-notes {
+    line-height: 1.6;
+}
+
+.chorus-editor-prosemirror p {
+    margin: 0 0 12px 0;
+    white-space: pre-wrap;
+}
+
+.chorus-editor-prosemirror p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- Colores de notas (globales) ---------- */
+[data-note="Do"], [data-note="Do#"], [data-note="Reb"],
+[data-note="C"],  [data-note="C#"],  [data-note="Db"] { color: #dc2626; }
+
+[data-note="Re"], [data-note="Re#"], [data-note="Mib"],
+[data-note="D"],  [data-note="D#"],  [data-note="Eb"] { color: #ea580c; }
+
+[data-note="Mi"], [data-note="E"] { color: #a16207; }
+
+[data-note="Fa"], [data-note="Fa#"], [data-note="Solb"],
+[data-note="F"],  [data-note="F#"],  [data-note="Gb"] { color: #16a34a; }
+
+[data-note="Sol"], [data-note="Sol#"], [data-note="Lab"],
+[data-note="G"],   [data-note="G#"],   [data-note="Ab"] { color: #2563eb; }
+
+[data-note="La"], [data-note="La#"], [data-note="Sib"],
+[data-note="A"],  [data-note="A#"],  [data-note="Bb"] { color: #4338ca; }
+
+[data-note="Si"], [data-note="B"] { color: #9333ea; }
+
+
+/* ---------- Toolbar (reorganizado) ---------- */
+.chorus-editor-toolbar {
+    display: flex;
+    flex-direction: column;
+    background: var(--header-bg);
+    border-radius: 8px 8px 0 0;
+    flex-shrink: 0;
+}
+.chorus-editor-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 8px 0;
+    flex-wrap: wrap;
+    min-height: 44px;
+}
+
+.chorus-editor-input {
+    flex: 1;
+    min-width: 160px;
+    padding: 6px 10px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-size: 13px;
+    font-family: inherit;
+}
+.chorus-editor-input:focus {
+    outline: none;
+    border-color: var(--active-border);
+}
+
+.chorus-editor-tipos {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Botón de tono: ícono music-2 + label */
+.chorus-editor-tono-btn {
+    padding: 0 10px;
+    gap: 6px;
+    min-width: auto;
+    flex-shrink: 0;
+}
+.chorus-editor-tono-btn .editor-tono-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ==========================================================
+   BLOQUE BASE DE LA STANZA Y LÍNEA AZUL
+   ========================================================== */
+.chorus-editor-prosemirror .chorus-stanza {
+    position: relative;
+    border-left: 3px solid var(--border-light);
+    padding-left: 110px; /* Aumentado de 60px a 110px para dar espacio al tag */
+    margin-left: -15px;
+    margin-bottom: 12px;
+    transition: border-color 0.15s ease;
+}
+
+.chorus-editor-prosemirror .chorus-stanza.chorus-stanza-active {
+    border-left-color: var(--active-border);
+}
+
+/* ==========================================================
+   TAG DE TIPO DE ESTROFA (Flotante a la izquierda)
+   ========================================================== */
+.chorus-stanza-tag-wrapper {
+    position: absolute;
+    left: 8px; /* Posición horizontal dentro del padding */
+    top: 2px;  /* Alineación vertical con la primera línea */
+    user-select: none;
+    z-index: 5;
+}
+
+.chorus-stanza-tag-badge {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-muted);
+    border: none;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chorus-stanza-tag-badge:hover {
+    background: var(--highlight-bg);
+    color: var(--text-main);
+}
+
+/* ==========================================================
+   DROPDOWN DE TIPO DE ESTROFA
+   ========================================================== */
+.stanza-type-picker {
+    padding: 8px !important;
+}
+
+.stanza-dropdown-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stanza-dropdown-header {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 4px 8px 8px 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stanza-dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.stanza-dropdown-item:hover {
+    background: var(--code-btn-hover-bg);
+}
+
+.stanza-dropdown-item.is-selected {
+    font-weight: 500;
+}
+
+.stanza-dropdown-item .sd-check {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    color: var(--text-main);
+    transition: opacity 0.15s ease;
+}
+
+.stanza-dropdown-item.is-selected .sd-check {
+    opacity: 1;
+}
+
+/* ==========================================================
+   SLIDER DE FRONTERA ENTRE STANZAS
+   ========================================================== */
+.chorus-editor-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    height: 4px;
+    margin: 12px 0;
+    position: relative;
+    cursor: ns-resize;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    transition: height 0.15s ease;
+}
+
+.chorus-editor-slider:hover {
+    height: 16px;
+}
+
+.chorus-editor-slider-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--border-light);
+    transform: translateY(-50%);
+    transition: background 0.15s ease, height 0.15s ease;
+}
+
+.chorus-editor-slider:hover .chorus-editor-slider-line {
+    background: var(--active-border);
+    height: 2px;
+}
+
+.chorus-editor-slider-grip {
+    position: absolute; /* Forzar centrado */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.chorus-editor-slider:hover .chorus-editor-slider-grip {
+    opacity: 1;
+    border-color: var(--active-border);
+    color: var(--active-border);
+}
+
+.chorus-editor-slider-guide {
+    position: fixed;
+    height: 0;
+    border-top: 1px dashed var(--active-border);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 99999;
+    box-sizing: border-box;
+}
+
+/* ==========================================================
+   NOTAS EN EL TEXTO
+   ========================================================== */
+.chorus-editor-prosemirror [data-note] {
+    display: inline-block;
+    text-align: left;
+    vertical-align: baseline;
+    margin-inline-end: 6px;
+}
+
+.chorus-editor-prosemirror [data-note]::before {
+    content: attr(data-note);
+    display: block;
+    font-size: 0.72em;
+    font-weight: 600;
+    line-height: 1;
+    color: currentColor;
+    opacity: 0.75;
+    white-space: nowrap;
+    margin-bottom: 2px;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Botón toggle de notas musicales */
+.chorus-editor-btn.is-active, .chorus-editor-btn.is-active:hover {
+    background: var(--active-border);
+    color: #ffffff;
+}
+
+/* ==========================================================
+   PICKER DE NOTAS — opciones como tags
+   ========================================================== */
+.chorus-note {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+.chorus-note:hover {
+    background: var(--highlight-bg);
+    border-color: var(--active-border);
+}
+.chorus-note.is-on {
+    background: var(--active-border);
+    color: #fff;
+    border-color: var(--active-border);
+}
+
+.chorus-custom-chord {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* El input hereda width:100% de input.css y como flex item se come
+   todo el ancho. flex:1 1 0 lo hace flexible de verdad. */
+.chorus-custom-chord-input {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.chorus-custom-chord-apply {
+    flex-shrink: 0;          /* no se deja aplastar por el input */
+    align-self: stretch;     /* misma altura que el input */
+    padding: 0 14px;
+    background: var(--active-border);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.chorus-custom-chord-apply:hover:not([disabled]) {
+    background: #0066b8;
+}
+.chorus-custom-chord-apply[disabled] {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: default;
+}
+
+.chorus-editor-tipo-btn {
+    padding: 0 10px;
+    gap: 6px;
+    min-width: auto;
+    flex-shrink: 0;
+}
+.chorus-editor-tipo-btn .editor-tipo-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+#editor-coro-modal .modal-box {
+    background: transparent;
+}

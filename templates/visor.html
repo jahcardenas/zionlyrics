@@ -1,0 +1,72 @@
+<div class="projector-thumb-wrapper">
+    <div class="proy-stage">
+        <div class="proy-layer-bg">
+            <img class="proy-bg-image">
+            <video class="proy-bg-video" loop muted playsinline disablepictureinpicture></video>
+        </div>
+
+        <div class="proy-layer-panel"></div>
+
+        <div class="proy-layer-content">
+            <div class="proy-conector">
+                <div class="proy-safe-area"></div>
+            </div>
+        </div>
+
+        <div class="proy-layer-marquee" data-position="bottom">
+            <div class="proy-marquee-track">
+                <span class="proy-marquee-text"></span>
+            </div>
+        </div>
+
+        <div class="proy-layer-sermon" data-position="top-center">
+            <span class="proy-sermon-text"></span>
+        </div>
+
+        <div class="proy-layer-logo pos-left">
+            <img class="proy-logo-image">
+            <video class="proy-logo-video" loop muted playsinline disablepictureinpicture></video>
+        </div>
+
+        <div class="proy-pause-overlay"></div>
+    </div>
+
+    <div class="thumb-label"></div>
+
+    <div class="thumb-control-bar">
+        <div class="code-btn" data-tooltip="Configurar capas y estilo"
+             onclick="openLayerSettings(this.closest('.projector-thumb-wrapper').dataset.displayId)">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="3"/>
+                <path d="M8 2v1.5M8 12.5V14M2 8h1.5M12.5 8H14M4 4l1 1M11 11l1 1M4 12l1-1M11 5l1-1"/>
+            </svg>
+        </div>
+        <div class="thumb-btn thumb-audio" data-tooltip="Seleccionar Salida de Audio">
+            <i data-lucide="volume-2" style="width: 16px; height: 16px;"></i>
+        </div>
+
+        <div style="flex: 1;"></div>
+
+        <div class="thumb-btn thumb-zoom-minus" data-tooltip="Reducir zoom">−</div>
+        <span class="thumb-zoom-level">100</span>
+        <div class="thumb-btn thumb-zoom-plus" data-tooltip="Aumentar zoom">+</div>
+
+        <div class="thumb-sep"></div>
+
+        <div class="thumb-btn thumb-playpause" data-mode="play" data-tooltip="Iniciar proyección">
+            <svg class="pp-icon pp-icon-play" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <path d="M4 2 L13 8 L4 14 Z"/>
+            </svg>
+            <svg class="pp-icon pp-icon-pause" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <rect x="3" y="3" width="3.5" height="10" rx="0.5"/>
+                <rect x="9.5" y="3" width="3.5" height="10" rx="0.5"/>
+            </svg>
+        </div>
+        <div class="thumb-btn thumb-stop" data-tooltip="Detener proyección">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <rect x="3.5" y="3.5" width="9" height="9" rx="1"/>
+            </svg>
+        </div>
+    </div>
+</div>

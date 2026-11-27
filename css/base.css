@@ -1,0 +1,162 @@
+:root {
+    /* Modo claro (por defecto) */
+    --bg-app: #f0f0f0;
+    --border-light: #d4d4d4;
+    --border-dark: #a0a0a0;
+    --panel-bg: #ffffff;
+    --header-bg: #e8e8e8;
+    --text-main: #1a1a1a;
+    --text-muted: #555555;
+    --highlight-bg: #e5f3ff;
+    --active-border: #0078D7;
+    --scrollbar-track: #f0f0f0;
+    --scrollbar-thumb: #c0c0c0;
+    --code-btn-hover-bg: rgba(0, 0, 0, 0.05);
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --btn-face: #e1e1e1;
+}
+
+
+/* Modo oscuro (detectado por sistema) */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-app: #121212;
+        --border-light: #3e3e3e;
+        --border-dark: #2a2a2a;
+        --panel-bg: #1e1e1e;
+        --header-bg: #2d2d2d;
+        --text-main: #e0e0e0;
+        --text-muted: #a0a0a0;
+        --highlight-bg: #3a3a3a;
+        --active-border: #0078D7;
+        --scrollbar-track: #1e1e1e;
+        --scrollbar-thumb: #3a3a3a;
+        --code-btn-hover-bg: rgba(255, 255, 255, 0.08);
+        --overlay-bg: rgba(255, 255, 255, 0.12);
+        --btn-face: #2d2d2d;
+    }
+}
+
+/* Sobrescritura manual */
+:root[data-theme="dark"] {
+    --bg-app: #121212;
+    --border-light: #3e3e3e;
+    --border-dark: #2a2a2a;
+    --panel-bg: #1e1e1e;
+    --header-bg: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --highlight-bg: #3a3a3a;
+    --active-border: #0078D7;
+    --scrollbar-track: #1e1e1e;
+    --scrollbar-thumb: #3a3a3a;
+    --code-btn-hover-bg: rgba(255, 255, 255, 0.08);
+    --overlay-bg: rgba(255, 255, 255, 0.12);
+    --btn-face: #2d2d2d;
+}
+
+:root[data-theme="light"] {
+    --bg-app: #f0f0f0;
+    --border-light: #d4d4d4;
+    --border-dark: #a0a0a0;
+    --panel-bg: #ffffff;
+    --header-bg: #e8e8e8;
+    --text-main: #1a1a1a;
+    --text-muted: #555555;
+    --highlight-bg: #e5f3ff;
+    --active-border: #0078D7;
+    --scrollbar-track: #f0f0f0;
+    --scrollbar-thumb: #c0c0c0;
+    --code-btn-hover-bg: rgba(0, 0, 0, 0.05);
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --btn-face: #e1e1e1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-ui, -apple-system, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-app);
+    overflow: hidden;
+    font-size: 12px;
+    color: var(--text-main);
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Permitir selección SOLO en campos de entrada */
+input,
+textarea,
+select,
+[contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.highlight { 
+    background-color: #ffe066; 
+    color: #000000; 
+    font-weight: bold;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+
+/* ==========================================================
+   FAKE CARET — cursor custom 2px
+   ========================================================== */
+.fake-caret {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2147483647;
+    display: none;
+    border-radius: 1px;
+    box-shadow: 0 0 2px rgba(0, 120, 215, 0.35);
+}
+
+.fake-caret-mirror {
+    position: fixed;
+    visibility: hidden;
+    left: -9999px;
+    top: 0;
+    pointer-events: none;
+}
+
+@keyframes fakeCaretBlink {
+    0%, 45%   { opacity: 1; }
+    75%, 100% { opacity: 0; }
+}
+
+/* ==========================================================
+   SCROLLBARS GLOBALES
+   ========================================================== */
+::-webkit-scrollbar { 
+    width: 8px; 
+    height: 8px; 
+}
+::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+::-webkit-scrollbar-thumb { 
+    background: var(--scrollbar-thumb); 
+    border-radius: 4px; 
+}
+::-webkit-scrollbar-thumb:hover { 
+    background: #4a4a4a; 
+}
+

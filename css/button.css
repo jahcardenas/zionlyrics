@@ -1,0 +1,173 @@
+.code-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: inherit;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    transition: color 0.2s, background 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.code-btn:hover {
+    color: var(--text-main);
+    background: var(--code-btn-hover-bg);
+}
+
+.code-btn:active {
+    transform: scale(0.95);
+}
+
+/* ── Icon-only: se vuelve cuadrado ── */
+.code-btn:has(> svg:only-child) {
+    padding: 0;
+    width: 28px;
+    min-width: 28px;
+}
+
+/* ── Estado activo (aplica a botones que abren menús) ── */
+.code-btn.active {
+    background: var(--code-btn-hover-bg);
+    color: var(--text-main);
+}
+
+/* ── Variante: peligro ── */
+.code-btn-danger {
+    color: #f0a0a0;
+}
+.code-btn-danger:hover {
+    color: #ff5555;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.code-btn-primary:hover {
+    background: rgba(0, 120, 215, 0.1);
+    color: var(--active-border);
+    box-shadow: none;
+}
+
+/* ── Variante: cancelar ── */
+.code-btn-cancel {
+    color: var(--text-muted);
+}
+.code-btn-cancel:hover {
+    color: var(--text-main);
+}
+
+/* ── Engrane (mantener el scale al abrir el menú) ── */
+.code-btn.menu-btn {
+    transition: color 0.2s, background 0.2s, transform 0.2s;
+}
+.code-btn.menu-btn.active {
+    transform: scale(1.1);
+}
+
+/* ── Excepción: botón de carpeta en el modal de capas ── */
+/*         El SVG interno es más grande y el botón es más bajo */
+.cc-folder-btn {
+    padding: 0 4px;
+    height: 24px;
+    min-width: 28px;
+    color: var(--text-muted);
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.cc-folder-btn svg {
+    width: 22px;
+    height: 22px;
+}
+.cc-folder-btn .cc-icon-back,
+.cc-folder-btn .cc-icon-front {
+    transition: fill 0.15s ease, stroke 0.15s ease;
+}
+.cc-folder-btn:hover .cc-icon-back {
+    fill: #4aa3ff;
+    stroke: #4aa3ff;
+}
+.cc-folder-btn:hover .cc-icon-front {
+    fill: #ffc107;
+    stroke: #ffc107;
+}
+
+.thumb-btn {
+    background: transparent;
+    color: #cfcfcf;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    min-height: 26px;
+    transition:
+        background-color 0.22s ease,
+        color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.1s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.thumb-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.thumb-btn:active {
+    transform: scale(0.92);
+}
+
+/* El SVG hereda el color del botón → la transición de color lo alcanza */
+.thumb-btn svg {
+    display: block;
+    pointer-events: none;   /* los clics van al botón, no al SVG interno */
+}
+
+/* Zoom: los glifos de texto sí son más grandes que los íconos SVG */
+.thumb-btn.thumb-zoom-minus,
+.thumb-btn.thumb-zoom-plus {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 0.9;
+}
+
+
+
+/* Play/Pause toggle: solo un icono visible según data-mode */
+.thumb-btn.thumb-playpause .pp-icon { display: none; }
+.thumb-btn.thumb-playpause[data-mode="play"]  .pp-icon-play  { display: block; }
+.thumb-btn.thumb-playpause[data-mode="pause"] .pp-icon-pause { display: block; }
+
+/* Hover colors por modo (mismo esquema que los botones separados) */
+.thumb-btn.thumb-playpause[data-mode="play"]:hover  { color: #4aa3ff; }
+.thumb-btn.thumb-playpause[data-mode="pause"]:hover { color: #ff9500; }
+
+.thumb-btn.thumb-stop:hover {
+    color: #ff3b30;
+}
+
+
+
+/* Nivel de zoom */
+.thumb-zoom-level {
+    color: #dddddd;
+    font-size: 12px;
+    min-width: 26px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}

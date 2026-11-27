@@ -1,0 +1,79 @@
+.app-toast {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-12px);
+    min-width: 280px;
+    max-width: 520px;
+    padding: 12px 16px 14px;
+    background-color: var(--popover-bg);
+    color: var(--popover-text);
+    border: 1px solid var(--popover-border);
+    border-radius: 8px;
+    box-shadow: box-shadow: var(--popover-shadow);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+/* 1. TEMA CLARO: Fondo ligeramente más oscuro/gris + Borde visible */
+:root[data-theme="dark"] {
+  --popover-bg: #F1F5F9;      /* Gris claro sutil (Slate 100), contrasta sobre el blanco puro */
+  --popover-text: #0F172A;    /* Texto oscuro para legibilidad */
+  --popover-border: #CBD5E1;  /* Borde definido para separar los bordes del fondo */
+  --popover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+}
+
+/* 2. TEMA OSCURO: Fondo un poco más claro (elevación) + Borde suave */
+:root[data-theme="light"] {
+  --popover-bg: #27272A;      /* Gris zinc medio, destaca claramente del fondo gris oscuro/negro */
+  --popover-text: #F8FAFC;    /* Texto blanco/gris muy claro */
+  --popover-border: #52525B;  /* Borde visible que delimita la tarjeta en la oscuridad */
+  --popover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+.app-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.app-toast-message {
+    font-size: 13px;
+    line-height: 1.45;
+    padding-right: 8px;
+}
+
+.app-toast-progress-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--code-btn-hover-bg);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.app-toast-progress {
+    height: 100%;
+    background: var(--active-border);
+    width: 100%;
+    transform-origin: left center;
+    animation: appToastProgress linear forwards;
+    animation-play-state: running;
+}
+
+.app-toast-progress.paused {
+    animation-play-state: paused;
+}
+
+@keyframes appToastProgress {
+    from { width: 100%; }
+    to   { width: 0%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-toast { transition: none; }
+    .app-toast-progress { animation: none; width: 0; }
+}

@@ -1,0 +1,67 @@
+        <!-- 18. Wordy -->
+        <div class="modal-overlay" id="wordy-add-modal">
+            <div class="modal-content" style="width: 1080px; height: 640px;">
+                <div class="modal-header" data-i18n="str369">Palabras de estudio</div>
+
+                <div class="modal-body cc-split-body">
+                    <!-- COLUMNA IZQUIERDA: form -->
+                    <div class="cc-split-right">
+                        <div style="display:flex; justify-content:flex-end; gap:8px;">
+                            <div class="code-btn" data-function="resetWordyDraft">
+                                <i data-lucide="eraser"></i>
+                                <span data-i18n="str17">Limpiar</span>
+                            </div>
+                        </div>
+
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str369">Palabras de estudio</div>
+                            <div id="wordy-rows-container"></div>
+                            <div class="code-btn" id="wordy-add-row-btn" data-function="addWordyRow" style="margin-top:8px;">
+                                <i data-lucide="square-plus"></i>
+                                <span data-i18n="str373">Agregar fila</span>
+                            </div>
+                        </div>
+
+                        <div class="cc-section">
+                            <div class="cc-section-title">Fuentes por columna</div>
+                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                <div class="cc-multi-btn" data-function="openWordyFontPicker" data-function-arg1="wordy1" id="wordy-font-1" style="flex:1;">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <div class="cc-multi-btn" data-function="openWordyFontPicker" data-function-arg1="wordy2" id="wordy-font-2" style="flex:1;">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                                <div class="cc-multi-btn" data-function="openWordyFontPicker" data-function-arg1="wordy3" id="wordy-font-3" style="flex:1;">
+                                    <span class="cc-multi-btn-label"></span>
+                                    <i class="cc-multi-btn-chevron" data-lucide="chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: preview + queue -->
+                    <div class="cc-split-left">
+                        <div class="cc-section cc-section-flat">
+                            <div class="cc-section-title" data-i18n="str36">Vista previa</div>
+                            <div id="wordy-preview" style="width:100%; aspect-ratio:16/9; background:#000; border-radius:8px; overflow:hidden;"></div>
+                        </div>
+
+                        <div class="cc-section">
+                            <div class="cc-section-title" data-i18n="str369">Palabras de estudio</div>
+                            <div id="wordy-queue-list" class="mrc-queue-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer modal-footer-right">
+                    <div class="code-btn code-btn-cancel" data-function="closeModal" data-function-arg1="wordy-add-modal">
+                        <span data-i18n="str27">Cancelar</span>
+                    </div>
+                    <div class="code-btn code-btn-primary" data-function="saveWordyFromModal">
+                        <span data-i18n="str57">Guardar</span>
+                    </div>
+                </div>
+            </div>
+        </div>

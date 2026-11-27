@@ -1,0 +1,117 @@
+{
+  "name": "zionlyrics",
+  "version": "3.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:tiptap": "esbuild js/editor-coro.js --bundle --format=esm --outfile=js/editor-coro.bundle.js --sourcemap",
+    "dist:mac": "npm run build:tiptap && electron-builder --mac",
+    "dist:win": "npm run build:tiptap && electron-builder --win",
+    "dist:linux": "npm run build:tiptap && electron-builder --linux",
+    "dist:all": "npm run build:tiptap && electron-builder -mwl"
+  },
+  "keywords": [
+    "iglesia",
+    "presentador",
+    "cristiano",
+    "electron",
+    "node"
+  ],
+  "author": {
+    "name": "Juan Hernández",
+    "email": "jahcardenas@proton.me",
+    "url": "https://github.com/jahcardenas"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jahcardenas/zionlyrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jahcardenas/zionlyrics/issues"
+  },
+  "homepage": "https://github.com/jahcardenas/zionlyrics#readme",
+  "funding": {
+    "type": "paypal",
+    "url": "https://paypal.me/jahcardenas"
+  },
+  "devDependencies": {
+    "electron": "^44.10.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.8.0",
+    "@tiptap/core": "^3.31.4",
+    "@tiptap/pm": "^3.31.4",
+    "@tiptap/starter-kit": "^3.31.4",
+    "animejs": "^4.5.0",
+    "lucide": "^1.66.0",
+    "moveable": "^0.53.0",
+    "sortablejs": "^1.15.7"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "electron-winstaller": true
+  },
+"build": {
+    "appId": "com.jahcardenas.zionlyrics",
+    "productName": "ZionLyrics",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!**/.*",
+      "!dist/**",
+      "!releases/**",
+      "!logs/**",
+      "!sessions/**",
+      "!config.json",
+      "!config.json.bak",
+      "!themes.json",
+      "!themes.json.bak",
+      "!node_modules/electron/**",
+      "!node_modules/electron-builder/**",
+      "!node_modules/esbuild/**",
+      "!node_modules/@tiptap/**"
+    ],
+    "extraResources": [
+      {
+        "from": "lang",
+        "to": "lang",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "json",
+        "to": "json",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "fonts",
+        "to": "fonts",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "media",
+        "to": "media",
+        "filter": ["**/*"]
+      }
+    ],
+    "mac": {
+      "icon": "icon.png",
+      "category": "public.app-category.productivity",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "icon": "icon.png",
+      "target": ["nsis"]
+    },
+    "linux": {
+      "icon": "icon.png",
+      "category": "Utility",
+      "target": ["AppImage", "deb"]
+    }
+  }
+}
