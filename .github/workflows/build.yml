@@ -47,10 +47,12 @@ jobs:
         run: npm ci
 
       - name: Build and package
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            npm run build:tiptap
             npx electron-builder --${{ runner.os == 'macOS' && 'mac' || (runner.os == 'Windows' && 'win' || 'linux') }} --publish always
           else
             npm run ${{ matrix.script }}
